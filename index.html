@@ -1,15 +1,40 @@
 <!DOCTYPE html>
 <html>
+<head>
+  <title>Log a Dog</title>
+  <link rel="stylesheet" href="style.css">
+</head>
 <body>
-<button onclick="ping()">Ping API</button>
-<pre id="out"></pre>
+<nav>
+  <a href="index.html">Submit</a>
+  <a href="logs.html">Logs</a>
+</nav>
+
+<div class="container">
+  <h1>Log a Dog</h1>
+
+  <input id="breed" placeholder="Dog breed">
+  <input id="count" type="number" value="1" min="1">
+  <button onclick="submitLog()">Submit</button>
+
+  <pre id="out"></pre>
+</div>
 
 <script>
-function ping() {
-  fetch("https://fn-logdog-d4fsggcrdudyh8c7.westeurope-01.azurewebsites.net/api/ping")
-    .then(r => r.text())
-    .then(t => document.getElementById("out").textContent = t)
-    .catch(e => document.getElementById("out").textContent = e);
+const API = "https://<YOUR-FUNCTION-APP>.azurewebsites.net/api";
+
+function submitLog() {
+  fetch(API + "/submit", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      breed: document.getElementById("breed").value,
+      count: Number(document.getElementById("count").value)
+    })
+  })
+  .then(r => r.text())
+  .then(t => document.getElementById("out").textContent = t)
+  .catch(e => document.getElementById("out").textContent = e);
 }
 </script>
 </body>
