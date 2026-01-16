@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<body>
+<button onclick="ping()">Ping API</button>
+<pre id="out"></pre>
+
+<script>
+function ping() {
+  fetch("https://<appname>.azurewebsites.net/api/ping")
+    .then(r => r.text())
+    .then(t => document.getElementById("out").textContent = t)
+    .catch(e => document.getElementById("out").textContent = e);
+}
+</script>
+</body>
+</html>
