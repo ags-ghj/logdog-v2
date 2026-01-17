@@ -217,12 +217,15 @@ geoBtn.onclick = () => {
       locationInput.value = loc;          // ✅ guaranteed
       localStorage.setItem(LAST_LOC, loc);
       status.textContent = "Location added";
+      geoBtn.style.outline = "2px solid var(--accent)";
+      setTimeout(() => geoBtn.style.outline = "", 1200);    
     },
     err => {
       status.textContent = "Location denied — tap again to retry";
     },
     { enableHighAccuracy: true, timeout: 10000 }
   );
+  
 };
 
 countGrid.onclick=e=>{
