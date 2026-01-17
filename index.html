@@ -13,56 +13,24 @@
   --ink:#f4efe6;--muted:#a7b0b8;--accent:#f5a524;--stroke:#2a3640;
 }
 *{box-sizing:border-box}
-body{
-  margin:0;font-family:"Space Grotesk",sans-serif;color:var(--ink);
-  background:var(--bg);
-}
-header{
-  padding:18px;
-  border-bottom:1px solid var(--stroke);
-  text-align:center;
-}
-header h1{
-  margin:0;
-  font-family:"Fraunces",serif;
-}
-header p{
-  margin:6px 0 12px;
-  color:var(--muted);
-  font-size:14px;
-}
-.nav{
-  display:flex;
-  justify-content:center;
-  gap:12px;
-}
+body{margin:0;font-family:"Space Grotesk",sans-serif;color:var(--ink);background:var(--bg)}
+header{padding:18px;text-align:center;border-bottom:1px solid var(--stroke)}
+header h1{margin:0;font-family:"Fraunces",serif}
+header p{margin:6px 0 12px;color:var(--muted);font-size:14px}
+.nav{display:flex;justify-content:center;gap:12px}
 .nav a{
-  padding:8px 14px;
-  border-radius:20px;
-  border:1px solid var(--stroke);
-  color:var(--ink);
-  text-decoration:none;
-  font-size:13px;
+  padding:8px 14px;border-radius:20px;border:1px solid var(--stroke);
+  color:var(--ink);text-decoration:none;font-size:13px
 }
-.container{
-  max-width:900px;
-  margin:0 auto;
-  padding:18px;
-}
+.container{max-width:900px;margin:0 auto;padding:18px}
 .card{
   background:linear-gradient(180deg,var(--panel),var(--panel-2));
-  border:1px solid var(--stroke);
-  border-radius:16px;
-  padding:18px;
+  border:1px solid var(--stroke);border-radius:16px;padding:18px
 }
-label{
-  display:block;margin-top:14px;
-  font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)
-}
+label{display:block;margin-top:14px;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
 input,textarea{
-  width:100%;margin-top:6px;padding:12px;
-  border-radius:12px;border:1px solid var(--stroke);
-  background:#0f151a;color:var(--ink)
+  width:100%;margin-top:6px;padding:12px;border-radius:12px;
+  border:1px solid var(--stroke);background:#0f151a;color:var(--ink)
 }
 .count-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:6px}
 .count-btn{
@@ -76,23 +44,17 @@ input,textarea{
   background:#101820;color:var(--ink);cursor:pointer
 }
 button.primary{
-  width:100%;margin-top:18px;padding:14px;
-  border-radius:12px;border:none;font-weight:800;
-  background:linear-gradient(120deg,var(--accent),#ffcf5a);
+  width:100%;margin-top:18px;padding:14px;border-radius:12px;border:none;
+  font-weight:800;background:linear-gradient(120deg,var(--accent),#ffcf5a);
   color:#241600;cursor:pointer
 }
 hr{border:0;border-top:1px solid var(--stroke);margin:22px 0}
 .table-wrap{overflow-x:auto}
-table{
-  width:100%;min-width:800px;border-collapse:collapse
-}
-th,td{
-  padding:10px;border-bottom:1px solid var(--stroke);
-  font-size:14px;white-space:nowrap
-}
+table{width:100%;min-width:800px;border-collapse:collapse}
+th,td{padding:10px;border-bottom:1px solid var(--stroke);white-space:nowrap;font-size:14px}
 th{font-size:11px;color:var(--muted);text-transform:uppercase}
 img.thumb{width:44px;height:44px;border-radius:8px;object-fit:cover}
-small{display:block;margin-top:8px;color:var(--muted)}
+small{display:block;margin-top:8px;color:var(--muted);min-height:18px}
 </style>
 </head>
 
@@ -113,28 +75,151 @@ small{display:block;margin-top:8px;color:var(--muted)}
 <label>Breed</label>
 <input id="breed" list="breedList" placeholder="Start typing breed…">
 <datalist id="breedList">
-  <option>Labrador Retriever</option><option>Golden Retriever</option>
-  <option>German Shepherd</option><option>French Bulldog</option>
-  <option>Poodle</option><option>Beagle</option><option>Dachshund</option>
-  <option>Border Collie</option><option>Rottweiler</option>
+  <option>Labrador Retriever</option>
+  <option>Golden Retriever</option>
+  <option>German Shepherd</option>
+  <option>French Bulldog</option>
+  <option>Poodle</option>
+  <option>Beagle</option>
+  <option>Dachshund</option>
+  <option>Border Collie</option>
+  <option>Rottweiler</option>
   <option>Staffordshire Bull Terrier</option>
   <option>Mixed / Cross</option>
+  <option>Afghan Hound</option>
+  <option>Airedale Terrier</option>
+  <option>Akita</option>
+  <option>Alaskan Malamute</option>
+  <option>American Bulldog</option>
+  <option>American Eskimo Dog</option>
+  <option>American Staffordshire Terrier</option>
+  <option>Australian Cattle Dog</option>
+  <option>Australian Shepherd</option>
+  <option>Basenji</option>
+  <option>Basset Hound</option>
+  <option>Belgian Malinois</option>
+  <option>Belgian Shepherd</option>
+  <option>Bernese Mountain Dog</option>
+  <option>Bichon Frise</option>
+  <option>Bloodhound</option>
+  <option>Bluetick Coonhound</option>
+  <option>Boerboel</option>
+  <option>Boston Terrier</option>
+  <option>Bouvier des Flandres</option>
+  <option>Boxer</option>
+  <option>Briard</option>
+  <option>Bullmastiff</option>
+  <option>Cairn Terrier</option>
+  <option>Canaan Dog</option>
+  <option>Cane Corso</option>
+  <option>Cavalier King Charles Spaniel</option>
+  <option>Chesapeake Bay Retriever</option>
+  <option>Chihuahua</option>
+  <option>Chinese Crested</option>
+  <option>Chow Chow</option>
+  <option>Clumber Spaniel</option>
+  <option>Cocker Spaniel</option>
+  <option>Collie</option>
+  <option>Coton de Tulear</option>
+  <option>Curly-Coated Retriever</option>
+  <option>Dandie Dinmont Terrier</option>
+  <option>Doberman Pinscher</option>
+  <option>English Setter</option>
+  <option>English Springer Spaniel</option>
+  <option>Entlebucher Mountain Dog</option>
+  <option>Field Spaniel</option>
+  <option>Finnish Spitz</option>
+  <option>Flat-Coated Retriever</option>
+  <option>Fox Terrier</option>
+  <option>Giant Schnauzer</option>
+  <option>Glen of Imaal Terrier</option>
+  <option>Gordon Setter</option>
+  <option>Great Dane</option>
+  <option>Great Pyrenees</option>
+  <option>Greyhound</option>
+  <option>Havanese</option>
+  <option>Ibizan Hound</option>
+  <option>Irish Setter</option>
+  <option>Irish Terrier</option>
+  <option>Irish Wolfhound</option>
+  <option>Italian Greyhound</option>
+  <option>Japanese Chin</option>
+  <option>Japanese Spitz</option>
+  <option>Keeshond</option>
+  <option>Komondor</option>
+  <option>Kuvasz</option>
+  <option>Lakeland Terrier</option>
+  <option>Leonberger</option>
+  <option>Lhasa Apso</option>
+  <option>Lowchen</option>
+  <option>Maltese</option>
+  <option>Manchester Terrier</option>
+  <option>Mastiff</option>
+  <option>Miniature Pinscher</option>
+  <option>Miniature Schnauzer</option>
+  <option>Neapolitan Mastiff</option>
+  <option>Newfoundland</option>
+  <option>Norfolk Terrier</option>
+  <option>Norwegian Elkhound</option>
+  <option>Norwich Terrier</option>
+  <option>Old English Sheepdog</option>
+  <option>Papillon</option>
+  <option>Parson Russell Terrier</option>
+  <option>Pekingese</option>
+  <option>Pharaoh Hound</option>
+  <option>Plott Hound</option>
+  <option>Pomeranian</option>
+  <option>Portuguese Water Dog</option>
+  <option>Puli</option>
+  <option>Pyrenean Shepherd</option>
+  <option>Rhodesian Ridgeback</option>
+  <option>Rough Collie</option>
+  <option>Saluki</option>
+  <option>Samoyed</option>
+  <option>Schipperke</option>
+  <option>Scottish Deerhound</option>
+  <option>Scottish Terrier</option>
+  <option>Shar Pei</option>
+  <option>Shetland Sheepdog</option>
+  <option>Shiba Inu</option>
+  <option>Shih Tzu</option>
+  <option>Silky Terrier</option>
+  <option>Skye Terrier</option>
+  <option>Soft Coated Wheaten Terrier</option>
+  <option>Spanish Water Dog</option>
+  <option>Spinone Italiano</option>
+  <option>Staffordshire Bull Terrier</option>
+  <option>Standard Schnauzer</option>
+  <option>Sussex Spaniel</option>
+  <option>Swedish Vallhund</option>
+  <option>Tibetan Mastiff</option>
+  <option>Tibetan Spaniel</option>
+  <option>Tibetan Terrier</option>
+  <option>Toy Fox Terrier</option>
+  <option>Vizsla</option>
+  <option>Weimaraner</option>
+  <option>Welsh Springer Spaniel</option>
+  <option>West Highland White Terrier</option>
+  <option>Whippet</option>
+  <option>Wirehaired Pointing Griffon</option>
+  <option>Xoloitzcuintli</option>
+  <option>Yorkshire Terrier</option>
 </datalist>
 
 <label>Count</label>
 <div class="count-grid" id="countGrid">
-  <button class="count-btn active" data-count="1">1</button>
-  <button class="count-btn" data-count="2">2</button>
-  <button class="count-btn" data-count="3">3</button>
-  <button class="count-btn" data-count="4">4</button>
-  <button class="count-btn" data-count="10">More</button>
+  <button type="button" class="count-btn active" data-count="1">1</button>
+  <button type="button" class="count-btn" data-count="2">2</button>
+  <button type="button" class="count-btn" data-count="3">3</button>
+  <button type="button" class="count-btn" data-count="4">4</button>
+  <button type="button" class="count-btn" data-count="10">More</button>
 </div>
 <input id="count" type="hidden" value="1">
 
 <label>Location</label>
 <div class="geo-row">
   <input id="location" placeholder="Where?">
-  <button class="geo-btn" id="geoBtn">📍</button>
+  <button type="button" class="geo-btn" id="geoBtn">📍</button>
 </div>
 
 <label>Notes</label>
@@ -143,7 +228,7 @@ small{display:block;margin-top:8px;color:var(--muted)}
 <label>Photo</label>
 <input id="photo" type="file" accept="image/*" capture="environment">
 
-<button class="primary" id="submitBtn">Submit</button>
+<button type="button" class="primary" id="submitBtn">Submit</button>
 <small id="status"></small>
 
 <hr>
@@ -165,28 +250,41 @@ small{display:block;margin-top:8px;color:var(--muted)}
 const API="https://fn-logdog2-cddwend9gva2gxa8.westeurope-01.azurewebsites.net/api";
 const LAST_LOC="logdog_last_location";
 
-const rowsEl=document.getElementById("rows");
-const statusEl=document.getElementById("status");
+const breedInput=document.getElementById("breed");
+const countInput=document.getElementById("count");
 const locationInput=document.getElementById("location");
+const notesInput=document.getElementById("notes");
+const photoInput=document.getElementById("photo");
+const statusEl=document.getElementById("status");
+const rowsEl=document.getElementById("rows");
 
 if(localStorage.getItem(LAST_LOC)){
   locationInput.value=localStorage.getItem(LAST_LOC);
 }
 
-document.getElementById("countGrid").onclick=e=>{
-  const b=e.target.closest(".count-btn"); if(!b)return;
+document.getElementById("countGrid").addEventListener("click",e=>{
+  const b=e.target.closest(".count-btn");
+  if(!b) return;
   document.querySelectorAll(".count-btn").forEach(x=>x.classList.remove("active"));
   b.classList.add("active");
-  document.getElementById("count").value=b.dataset.count;
-};
+  countInput.value=b.dataset.count;
+});
 
 document.getElementById("geoBtn").onclick=()=>{
+  if(!navigator.geolocation){
+    statusEl.textContent="Location not supported";
+    return;
+  }
+  statusEl.textContent="Getting location…";
   navigator.geolocation.getCurrentPosition(p=>{
     const loc=`${p.coords.latitude.toFixed(5)}, ${p.coords.longitude.toFixed(5)}`;
     locationInput.value=loc;
     localStorage.setItem(LAST_LOC,loc);
-  });
+    statusEl.textContent="Location added";
+  },()=>statusEl.textContent="Location denied");
 };
+
+document.getElementById("submitBtn").addEventListener("click",submitLog);
 
 function fmt(ts){
   return new Date(ts).toLocaleString(undefined,{
@@ -195,22 +293,61 @@ function fmt(ts){
   });
 }
 
-async function load(){
-  const data=await fetch(API+"/logs").then(r=>r.json());
+async function submitLog(){
+  try{
+    statusEl.textContent="Saving…";
+    let photoUrl="";
+
+    if(photoInput.files.length){
+      const fd=new FormData();
+      fd.append("file",photoInput.files[0]);
+      const up=await fetch(API+"/upload",{method:"POST",body:fd});
+      if(!up.ok) throw new Error("Upload failed");
+      photoUrl=await up.text();
+    }
+
+    const res=await fetch(API+"/submit",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({
+        breed:breedInput.value.trim(),
+        count:Number(countInput.value||1),
+        location:locationInput.value.trim(),
+        notes:notesInput.value.trim(),
+        photoUrl
+      })
+    });
+
+    if(!res.ok) throw new Error("Submit failed");
+
+    statusEl.textContent="Saved";
+    notesInput.value="";
+    photoInput.value="";
+    loadLogs();
+  }catch(err){
+    statusEl.textContent="Error saving";
+    console.error(err);
+  }
+}
+
+async function loadLogs(){
+  const r=await fetch(API+"/logs");
+  if(!r.ok) return;
+  const data=await r.json();
   rowsEl.innerHTML="";
-  data.forEach(r=>{
+  data.forEach(x=>{
     rowsEl.innerHTML+=`
       <tr>
-        <td>${fmt(r.ts)}</td>
-        <td>${r.breed||""}</td>
-        <td>${r.count||""}</td>
-        <td>${r.location||""}</td>
-        <td>${r.notes||""}</td>
-        <td>${r.photoUrl?`<img class="thumb" src="${r.photoUrl}">`:""}</td>
+        <td>${fmt(x.ts)}</td>
+        <td>${x.breed||""}</td>
+        <td>${x.count||""}</td>
+        <td>${x.location||""}</td>
+        <td>${x.notes||""}</td>
+        <td>${x.photoUrl?`<img class="thumb" src="${x.photoUrl}">`:""}</td>
       </tr>`;
   });
 }
-load();
+loadLogs();
 </script>
 
 </body>
