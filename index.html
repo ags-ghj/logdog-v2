@@ -67,7 +67,20 @@ button.primary{
 hr{border:0;border-top:1px solid var(--stroke);margin:22px 0}
 .table-wrap{overflow-x:auto}
 table{width:100%;min-width:800px;border-collapse:collapse}
-th,td{padding:10px;border-bottom:1px solid var(--stroke);white-space:nowrap;font-size:14px}
+th, td{
+  padding:10px;
+  border-bottom:1px solid var(--stroke);
+  font-size:14px;
+}
+
+td:last-child, th:last-child{
+  text-align:center;
+}
+
+.photo-cell{
+  width:44px;
+  height:44px;
+}
 th{font-size:11px;color:var(--muted);text-transform:uppercase}
 img.thumb{width:44px;height:44px;border-radius:8px;object-fit:cover;cursor:pointer}
 small{display:block;margin-top:8px;color:var(--muted);min-height:18px}
@@ -259,12 +272,12 @@ small{display:block;margin-top:8px;color:var(--muted);min-height:18px}
 <div class="table-wrap">
   <table>
     <colgroup>
-      <col style="width:160px">
+      <col style="width:150px">
       <col style="width:180px">
-      <col style="width:60px">
-      <col style="width:200px">
+      <col style="width:50px">
+      <col style="width:220px">
       <col>
-      <col style="width:70px">
+      <col style="width:80px">
     </colgroup>
     <thead>
       <tr>
@@ -379,7 +392,14 @@ async function loadLogs(){
         <td>${x.count||""}</td>
         <td>${x.location||""}</td>
         <td>${x.notes||""}</td>
-        <td>${x.photoUrl?`<a href="${x.photoUrl}" target="_blank"><img class="thumb" src="${x.photoUrl}"></a>`:""}</td>
+        <td class="photo-cell">
+          ${x.photoUrl
+            ? `<a href="${x.photoUrl}" target="_blank">
+                <img class="thumb" src="${x.photoUrl}">
+              </a>`
+            : ""
+          }
+        </td>
       </tr>`;
   });
 }
