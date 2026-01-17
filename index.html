@@ -1,41 +1,113 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Log a Dog</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Log a Dog</title>
+<style>
+body{margin:0;font-family:system-ui;background:#121212;color:#eaeaea}
+header{padding:14px;text-align:center;font-weight:600;background:#000}
+.container{max-width:480px;margin:0 auto;padding:16px}
+label{display:block;margin-top:14px;font-size:14px}
+input,textarea,button{width:100%;padding:14px;margin-top:6px;border-radius:12px;border:none;font-size:16px;background:#1e1e1e;color:#eaeaea}
+button{margin-top:20px;background:#4da3ff;color:#000;font-weight:600}
+hr{border:0;border-top:1px solid #333;margin:24px 0}
+table{width:100%;border-collapse:collapse}
+th,td{padding:10px;border-bottom:1px solid #333;text-align:left;font-size:14px}
+img.thumb{width:48px;height:48px;object-fit:cover;border-radius:6px}
+small{color:#aaa}
+</style>
 </head>
 <body>
-<nav>
-  <a href="index.html">Submit</a>
-  <a href="logs.html">Logs</a>
-</nav>
+
+<header>LogDog</header>
 
 <div class="container">
-  <h1>Log a Dog</h1>
+  <h2>New log</h2>
 
-  <input id="breed" placeholder="Dog breed">
-  <input id="count" type="number" value="1" min="1">
+  <label>Breed
+    <input id="breed">
+  </label>
+
+  <label>Count
+    <input id="count" type="number" value="1" min="1">
+  </label>
+
+  <label>Location
+    <input id="location">
+  </label>
+
+  <label>Notes
+    <textarea id="notes" rows="2"></textarea>
+  </label>
+
+  <label>Photo
+    <input id="photo" type="file" accept="image/*" capture="environment">
+  </label>
+
   <button onclick="submitLog()">Submit</button>
+  <small id="status"></small>
 
-  <pre id="out"></pre>
+  <hr>
+
+  <h2>History</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Time</th>
+        <th>Breed</th>
+        <th>#</th>
+        <th>Photo</th>
+      </tr>
+    </thead>
+    <tbody id="rows"></tbody>
+  </table>
 </div>
 
 <script>
-const API = "https://fn-logdog-d4fsggcrdudyh8c7.westeurope-01.azurewebsites.net/api";
+const API="/api";
 
-function submitLog() {
-  fetch(API + "/submit", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      breed: document.getElementById("breed").value,
-      count: Number(document.getElementById("count").value)
+async function submitLog(){
+  status.textContent="Saving…";
+  let photoUrl=null;
+
+  if(photo.files.length){
+    const fd=new FormData();
+    fd.append("file",photo.files[0]);
+    photoUrl=await fetch(API+"/upload",{method:"POST",body:fd}).then(r=>r.text());
+  }
+
+  await fetch(API+"/submit",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({
+      breed:breed.value,
+      count:Number(count.value),
+      location:location.value,
+      notes:notes.value,
+      photoUrl
     })
-  })
-  .then(r => r.text())
-  .then(t => document.getElementById("out").textContent = t)
-  .catch(e => document.getElementById("out").textContent = e);
+  });
+
+  status.textContent="Saved";
+  load();
 }
+
+async function load(){
+  const data=await fetch(API+"/logs").then(r=>r.json());
+  rows.innerHTML="";
+  data.forEach(r=>{
+    rows.innerHTML+=`
+      <tr>
+        <td>${r.ts||""}</td>
+        <td>${r.breed||""}</td>
+        <td>${r.count||""}</td>
+        <td>${r.photoUrl?'<img class="thumb" src="'+r.photoUrl+'">':''}</td>
+      </tr>`;
+  });
+}
+load();
 </script>
+
 </body>
 </html>
