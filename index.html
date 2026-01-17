@@ -3,183 +3,61 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
 <title>LogDog — If you’ve seen a dog, add it to the log!!!</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;800&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
 :root{
-  --bg:#0f1418;
-  --panel:#141b21;
-  --panel-2:#1b242c;
-  --ink:#f4efe6;
-  --muted:#a7b0b8;
-  --accent:#f5a524;
-  --stroke:#2a3640;
+  --bg:#0f1418;--panel:#141b21;--panel-2:#1b242c;
+  --ink:#f4efe6;--muted:#a7b0b8;--accent:#f5a524;--stroke:#2a3640;
 }
-
 *{box-sizing:border-box}
-
 body{
-  margin:0;
-  font-family:"Space Grotesk",sans-serif;
-  color:var(--ink);
+  margin:0;font-family:"Space Grotesk",sans-serif;color:var(--ink);
   background:
     radial-gradient(800px 400px at 110% -10%, rgba(245,165,36,.15), transparent 60%),
     radial-gradient(600px 400px at -10% 120%, rgba(100,209,166,.12), transparent 60%),
     var(--bg);
 }
-
-header{
-  padding:18px;
-  text-align:center;
-  border-bottom:1px solid var(--stroke);
-}
-
-header h1{
-  font-family:"Fraunces",serif;
-  margin:0;
-  font-size:26px;
-}
-
-header p{
-  margin:6px 0 0;
-  color:var(--muted);
-  font-size:14px;
-}
-
-.container{
-  max-width:560px;
-  margin:0 auto;
-  padding:18px;
-}
-
+header{padding:18px;text-align:center;border-bottom:1px solid var(--stroke)}
+header h1{margin:0;font-family:"Fraunces",serif;font-size:26px}
+header p{margin:6px 0 0;color:var(--muted);font-size:14px}
+.container{max-width:560px;margin:0 auto;padding:18px}
 .card{
   background:linear-gradient(180deg,var(--panel),var(--panel-2));
-  border:1px solid var(--stroke);
-  border-radius:16px;
-  padding:18px;
-  box-shadow:0 12px 40px rgba(0,0,0,.35);
+  border:1px solid var(--stroke);border-radius:16px;
+  padding:18px;box-shadow:0 12px 40px rgba(0,0,0,.35)
 }
-
-h2{
-  font-family:"Fraunces",serif;
-  margin:0 0 12px;
+h2{font-family:"Fraunces",serif;margin:0 0 12px}
+label{display:block;margin-top:14px;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+input,textarea{
+  width:100%;margin-top:6px;padding:12px;border-radius:12px;
+  border:1px solid var(--stroke);background:#0f151a;color:var(--ink);font-size:15px
 }
-
-label{
-  display:block;
-  margin-top:14px;
-  font-size:12px;
-  text-transform:uppercase;
-  letter-spacing:.08em;
-  color:var(--muted);
-}
-
-input,select,textarea{
-  width:100%;
-  margin-top:6px;
-  padding:12px;
-  border-radius:12px;
-  border:1px solid var(--stroke);
-  background:#0f151a;
-  color:var(--ink);
-  font-size:15px;
-}
-
-.count-grid{
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:8px;
-  margin-top:6px;
-}
-
+.count-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:6px}
 .count-btn{
-  padding:12px;
-  border-radius:10px;
-  border:1px solid var(--stroke);
-  background:#101820;
-  color:var(--ink);
-  font-size:16px;
-  font-weight:600;
-  cursor:pointer;
+  padding:12px;border-radius:10px;border:1px solid var(--stroke);
+  background:#101820;color:var(--ink);font-size:16px;font-weight:600;cursor:pointer
 }
-
-.count-btn.active{
-  outline:2px solid var(--accent);
-}
-
-button.primary{
-  width:100%;
-  padding:14px;
-  margin-top:18px;
-  border-radius:12px;
-  border:none;
-  font-size:16px;
-  font-weight:800;
-  background:linear-gradient(120deg,var(--accent),#ffcf5a);
-  color:#241600;
-  cursor:pointer;
-}
-
-.geo-row{
-  display:flex;
-  gap:8px;
-}
-
+.count-btn.active{outline:2px solid var(--accent)}
+.geo-row{display:flex;gap:8px}
 .geo-btn{
-  flex:0 0 auto;
-  padding:12px 14px;
-  border-radius:12px;
-  border:1px solid var(--stroke);
-  background:#101820;
-  color:var(--ink);
-  cursor:pointer;
+  padding:12px 14px;border-radius:12px;border:1px solid var(--stroke);
+  background:#101820;color:var(--ink);cursor:pointer
 }
-
-hr{
-  border:0;
-  border-top:1px solid var(--stroke);
-  margin:22px 0;
+button.primary{
+  width:100%;padding:14px;margin-top:18px;border-radius:12px;border:none;
+  font-size:16px;font-weight:800;background:linear-gradient(120deg,var(--accent),#ffcf5a);
+  color:#241600;cursor:pointer
 }
-
-.table-wrap{
-  overflow-x:auto;
-}
-
-table{
-  width:100%;
-  border-collapse:collapse;
-  min-width:520px;
-}
-
-th,td{
-  padding:10px;
-  border-bottom:1px solid var(--stroke);
-  font-size:14px;
-  white-space:nowrap;
-}
-
-th{
-  font-size:11px;
-  color:var(--muted);
-  text-transform:uppercase;
-}
-
-img.thumb{
-  width:46px;
-  height:46px;
-  border-radius:8px;
-  object-fit:cover;
-}
-
-small{
-  display:block;
-  min-height:18px;
-  margin-top:8px;
-  color:var(--muted);
-}
+hr{border:0;border-top:1px solid var(--stroke);margin:22px 0}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:520px}
+th,td{padding:10px;border-bottom:1px solid var(--stroke);font-size:14px;white-space:nowrap}
+th{font-size:11px;color:var(--muted);text-transform:uppercase}
+img.thumb{width:46px;height:46px;border-radius:8px;object-fit:cover}
+small{display:block;min-height:18px;margin-top:8px;color:var(--muted)}
 </style>
 </head>
 
@@ -196,18 +74,32 @@ small{
 <h2>New log</h2>
 
 <label>Breed</label>
-<select id="breed">
-  <option value="">Select breed…</option>
-  <option>Labrador</option>
-  <option>Golden Retriever</option>
-  <option>German Shepherd</option>
-  <option>French Bulldog</option>
-  <option>Poodle</option>
-  <option>Spaniel</option>
-  <option>Terrier</option>
-  <option value="other">Other…</option>
-</select>
-<input id="breedOther" placeholder="Enter breed" style="display:none">
+<input id="breed" list="breedList" placeholder="Start typing breed…">
+
+<datalist id="breedList">
+<option>Labrador Retriever</option><option>Golden Retriever</option><option>German Shepherd</option>
+<option>French Bulldog</option><option>Bulldog</option><option>Poodle</option><option>Beagle</option>
+<option>Dachshund</option><option>Border Collie</option><option>Rottweiler</option>
+<option>Boxer</option><option>Staffordshire Bull Terrier</option><option>American Bulldog</option>
+<option>Doberman</option><option>Great Dane</option><option>Shih Tzu</option>
+<option>Chihuahua</option><option>Pug</option><option>Maltese</option>
+<option>Cocker Spaniel</option><option>Springer Spaniel</option><option>King Charles Spaniel</option>
+<option>Husky</option><option>Alaskan Malamute</option><option>Samoyed</option>
+<option>Akita</option><option>Shiba Inu</option><option>Basenji</option>
+<option>Whippet</option><option>Greyhound</option><option>Italian Greyhound</option>
+<option>Jack Russell Terrier</option><option>Yorkshire Terrier</option><option>West Highland Terrier</option>
+<option>Border Terrier</option><option>Cairn Terrier</option><option>Airedale Terrier</option>
+<option>Miniature Schnauzer</option><option>Standard Schnauzer</option><option>Giant Schnauzer</option>
+<option>Pomeranian</option><option>American Eskimo Dog</option><option>Japanese Spitz</option>
+<option>Australian Shepherd</option><option>Australian Cattle Dog</option><option>Kelpie</option>
+<option>Bernese Mountain Dog</option><option>Saint Bernard</option><option>Newfoundland</option>
+<option>Leonberger</option><option>Bullmastiff</option><option>Mastiff</option>
+<option>Rhodesian Ridgeback</option><option>Vizsla</option><option>Weimaraner</option>
+<option>Pointer</option><option>Setter</option><option>Irish Setter</option>
+<option>Lagotto Romagnolo</option><option>Portuguese Water Dog</option><option>Spanish Water Dog</option>
+<option>Bichon Frise</option><option>Havanese</option><option>Coton de Tulear</option>
+<option>Mixed / Cross</option>
+</datalist>
 
 <label>Count</label>
 <div class="count-grid" id="countGrid">
@@ -240,14 +132,7 @@ small{
 <div class="table-wrap">
 <table>
 <thead>
-<tr>
-  <th>Time</th>
-  <th>Breed</th>
-  <th>#</th>
-  <th>Location</th>
-  <th>Notes</th>
-  <th>Photo</th>
-</tr>
+<tr><th>Time</th><th>Breed</th><th>#</th><th>Location</th><th>Notes</th><th>Photo</th></tr>
 </thead>
 <tbody id="rows"></tbody>
 </table>
@@ -258,20 +143,20 @@ small{
 
 <script>
 const API="https://fn-logdog2-cddwend9gva2gxa8.westeurope-01.azurewebsites.net/api";
+const LAST_LOC_KEY="logdog_last_location";
 
 const statusEl=document.getElementById("status");
 const rowsEl=document.getElementById("rows");
-const breedSel=document.getElementById("breed");
-const breedOther=document.getElementById("breedOther");
+const breedInput=document.getElementById("breed");
 const countInput=document.getElementById("count");
 const countGrid=document.getElementById("countGrid");
 const locationInput=document.getElementById("location");
 const notesInput=document.getElementById("notes");
 const photoInput=document.getElementById("photo");
 
-breedSel.onchange=()=>{
-  breedOther.style.display = breedSel.value==="other" ? "block":"none";
-};
+if(localStorage.getItem(LAST_LOC_KEY)){
+  locationInput.value=localStorage.getItem(LAST_LOC_KEY);
+}
 
 countGrid.onclick=e=>{
   const b=e.target.closest(".count-btn");
@@ -289,7 +174,9 @@ document.getElementById("geoBtn").onclick=()=>{
     try{
       const r=await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`);
       const d=await r.json();
-      locationInput.value=d.address?.suburb||d.address?.town||d.address?.city||`${latitude.toFixed(5)},${longitude.toFixed(5)}`;
+      const loc=d.address?.suburb||d.address?.town||d.address?.city||`${latitude.toFixed(5)},${longitude.toFixed(5)}`;
+      locationInput.value=loc;
+      localStorage.setItem(LAST_LOC_KEY,loc);
       statusEl.textContent="Location added";
     }catch{
       locationInput.value=`${latitude.toFixed(5)},${longitude.toFixed(5)}`;
@@ -311,7 +198,7 @@ async function submitLog(){
     method:"POST",
     headers:{"Content-Type":"application/json"},
     body:JSON.stringify({
-      breed: breedSel.value==="other"?breedOther.value:breedSel.value,
+      breed:breedInput.value,
       count:Number(countInput.value),
       location:locationInput.value,
       notes:notesInput.value,
@@ -319,7 +206,7 @@ async function submitLog(){
     })
   });
   statusEl.textContent="Saved";
-  locationInput.value=notesInput.value=breedOther.value="";
+  notesInput.value="";
   loadLogs();
 }
 
