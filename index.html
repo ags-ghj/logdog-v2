@@ -28,7 +28,7 @@ label{
   margin-top:14px;
   font-size:14px
 }
-input,textarea,button{
+input,textarea{
   width:100%;
   padding:14px;
   margin-top:6px;
@@ -39,15 +39,20 @@ input,textarea,button{
   color:#eaeaea
 }
 button{
-  margin-top:20px;
+  width:100%;
+  padding:14px;
+  margin-top:18px;
+  border-radius:12px;
+  border:none;
+  font-size:18px;
+  font-weight:600;
   background:#4da3ff;
   color:#000;
-  font-weight:600;
   cursor:pointer
 }
 .count-grid{
   display:grid;
-  grid-template-columns:repeat(4,1fr);
+  grid-template-columns:repeat(5,1fr);
   gap:10px;
   margin-top:8px
 }
@@ -62,11 +67,6 @@ button{
 }
 .count-btn.active{
   outline:2px solid #4da3ff
-}
-.count-btn.more{
-  grid-column:span 4;
-  background:#4da3ff;
-  color:#000
 }
 hr{
   border:0;
@@ -114,9 +114,8 @@ small{
   <button class="count-btn" onclick="setCount(2)">2</button>
   <button class="count-btn" onclick="setCount(3)">3</button>
   <button class="count-btn" onclick="setCount(4)">4</button>
-  <button class="count-btn more" onclick="setCount(10)">More</button>
+  <button class="count-btn" onclick="setCount(10)">More</button>
 </div>
-
 <input id="count" type="hidden" value="1">
 
 <label>
