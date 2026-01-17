@@ -206,6 +206,8 @@ small{
           <th>Time</th>
           <th>Breed</th>
           <th>#</th>
+          <th>Location</th>
+          <th>Notes</th>
           <th>Photo</th>
         </tr>
       </thead>
@@ -291,6 +293,8 @@ async function loadLogs(){
           <td>${r.ts || ""}</td>
           <td>${r.breed || ""}</td>
           <td>${r.count || ""}</td>
+          <td>${r.location || ""}</td>
+          <td>${r.notes || ""}</td>
           <td>${photoCell}</td>
         </tr>
       `;
