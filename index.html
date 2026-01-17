@@ -3,27 +3,27 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>LogDog</title>
+<title>LogDog – If you’ve seen a dog, add it to the log!</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;700&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
 :root{
-  --bg: #0f1418;
-  --panel: #141b21;
-  --panel-2: #1b242c;
-  --ink: #f4efe6;
-  --muted: #a7b0b8;
-  --accent: #f5a524;
-  --accent-2: #64d1a6;
-  --stroke: #2a3640;
+  --bg:#0f1418;
+  --panel:#141b21;
+  --panel-2:#1b242c;
+  --ink:#f4efe6;
+  --muted:#a7b0b8;
+  --accent:#f5a524;
+  --accent-2:#64d1a6;
+  --stroke:#2a3640;
 }
 
-*{ box-sizing: border-box; }
+*{ box-sizing:border-box; }
 
 body{
   margin:0;
-  font-family:"Space Grotesk", sans-serif;
+  font-family:"Space Grotesk",sans-serif;
   color:var(--ink);
   background:
     radial-gradient(900px 500px at 110% -10%, rgba(245,165,36,0.15), transparent 60%),
@@ -32,13 +32,24 @@ body{
 }
 
 header{
-  padding:18px;
+  padding:20px 16px 18px;
   text-align:center;
-  font-family:"Fraunces", serif;
-  letter-spacing:0.02em;
-  font-size:24px;
-  background:linear-gradient(90deg, rgba(255,255,255,0.06), transparent);
   border-bottom:1px solid var(--stroke);
+  background:linear-gradient(90deg, rgba(255,255,255,0.06), transparent);
+}
+
+header h1{
+  margin:0;
+  font-family:"Fraunces",serif;
+  font-size:26px;
+  letter-spacing:0.03em;
+}
+
+header p{
+  margin:6px 0 0;
+  font-size:14px;
+  color:var(--muted);
+  letter-spacing:0.02em;
 }
 
 .container{
@@ -48,7 +59,7 @@ header{
 }
 
 .card{
-  background:linear-gradient(180deg, var(--panel), var(--panel-2));
+  background:linear-gradient(180deg,var(--panel),var(--panel-2));
   border:1px solid var(--stroke);
   border-radius:16px;
   padding:18px;
@@ -57,42 +68,29 @@ header{
 }
 
 h2{
-  font-family:"Fraunces", serif;
+  font-family:"Fraunces",serif;
   font-size:22px;
-  margin:0 0 12px 0;
+  margin:0 0 12px;
 }
 
 label{
   display:block;
   margin-top:14px;
-  font-size:13px;
+  font-size:12px;
   text-transform:uppercase;
   letter-spacing:0.08em;
   color:var(--muted);
 }
 
-input, textarea{
+input,textarea{
   width:100%;
   margin-top:6px;
-  padding:12px 12px;
+  padding:12px;
   border-radius:12px;
   border:1px solid var(--stroke);
   background:#0f151a;
   color:var(--ink);
   font-size:15px;
-}
-
-button.primary{
-  width:100%;
-  padding:14px;
-  margin-top:18px;
-  border-radius:12px;
-  border:none;
-  font-size:16px;
-  font-weight:700;
-  background:linear-gradient(120deg, var(--accent), #ffcf5a);
-  color:#241600;
-  cursor:pointer;
 }
 
 .count-grid{
@@ -117,16 +115,52 @@ button.primary{
   outline:2px solid var(--accent);
 }
 
+.file-btn{
+  display:inline-block;
+  width:100%;
+  margin-top:6px;
+  padding:12px;
+  border-radius:12px;
+  border:1px solid var(--stroke);
+  background:#0f151a;
+  color:var(--ink);
+  text-align:center;
+  cursor:pointer;
+  font-weight:600;
+}
+
+.file-btn input{
+  display:none;
+}
+
+button.primary{
+  width:100%;
+  padding:14px;
+  margin-top:18px;
+  border-radius:12px;
+  border:none;
+  font-size:16px;
+  font-weight:700;
+  background:linear-gradient(120deg,var(--accent),#ffcf5a);
+  color:#241600;
+  cursor:pointer;
+}
+
 hr{
   border:0;
   border-top:1px solid var(--stroke);
-  margin:20px 0;
+  margin:22px 0;
+}
+
+.table-wrap{
+  margin-top:8px;
+  overflow-x:auto;
 }
 
 table{
   width:100%;
+  min-width:520px;
   border-collapse:collapse;
-  margin-top:6px;
 }
 
 th,td{
@@ -134,6 +168,7 @@ th,td{
   border-bottom:1px solid var(--stroke);
   text-align:left;
   font-size:14px;
+  word-break:break-word;
 }
 
 th{
@@ -141,6 +176,12 @@ th{
   text-transform:uppercase;
   letter-spacing:0.08em;
   color:var(--muted);
+}
+
+td:first-child{
+  font-size:12px;
+  color:var(--muted);
+  white-space:nowrap;
 }
 
 img.thumb{
@@ -159,20 +200,24 @@ small{
 }
 
 @keyframes fadeUp{
-  from{ transform:translateY(8px); opacity:0; }
-  to{ transform:translateY(0); opacity:1; }
+  from{transform:translateY(8px);opacity:0;}
+  to{transform:translateY(0);opacity:1;}
 }
 </style>
 </head>
+
 <body>
 
-<header>LogDog</header>
+<header>
+  <h1>LogDog</h1>
+  <p>If you’ve seen a dog, add it to the log!!!</p>
+</header>
 
 <div class="container">
   <div class="card">
     <h2>New log</h2>
 
-    <label for="breed">Breed</label>
+    <label>Breed</label>
     <input id="breed" placeholder="Dog breed">
 
     <label>Count</label>
@@ -185,14 +230,17 @@ small{
     </div>
     <input id="count" type="hidden" value="1">
 
-    <label for="location">Location</label>
+    <label>Location</label>
     <input id="location" placeholder="Where?">
 
-    <label for="notes">Notes</label>
+    <label>Notes</label>
     <textarea id="notes" rows="2"></textarea>
 
-    <label for="photo">Photo</label>
-    <input id="photo" type="file" accept="image/*" capture="environment">
+    <label>Photo</label>
+    <label class="file-btn">
+      Add photo
+      <input id="photo" type="file" accept="image/*" capture="environment">
+    </label>
 
     <button class="primary" id="submitBtn">Submit</button>
     <small id="status"></small>
@@ -200,19 +248,23 @@ small{
     <hr>
 
     <h2>History</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Time</th>
-          <th>Breed</th>
-          <th>#</th>
-          <th>Location</th>
-          <th>Notes</th>
-          <th>Photo</th>
-        </tr>
-      </thead>
-      <tbody id="rows"></tbody>
-    </table>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>Breed</th>
+            <th>#</th>
+            <th>Location</th>
+            <th>Notes</th>
+            <th>Photo</th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+
   </div>
 </div>
 
@@ -227,80 +279,77 @@ const locationInput = document.getElementById("location");
 const notesInput = document.getElementById("notes");
 const photoInput = document.getElementById("photo");
 
-countGrid.addEventListener("click", (e) => {
-  const btn = e.target.closest(".count-btn");
-  if(!btn) return;
-  countInput.value = btn.dataset.count;
-  document.querySelectorAll(".count-btn").forEach(b => b.classList.remove("active"));
+countGrid.addEventListener("click", e=>{
+  const btn=e.target.closest(".count-btn");
+  if(!btn)return;
+  countInput.value=btn.dataset.count;
+  document.querySelectorAll(".count-btn").forEach(b=>b.classList.remove("active"));
   btn.classList.add("active");
 });
 
 document.getElementById("submitBtn").addEventListener("click", submitLog);
 
 function resetForm(){
-  breedInput.value = "";
-  locationInput.value = "";
-  notesInput.value = "";
-  photoInput.value = "";
-  countInput.value = "1";
-  const firstBtn = countGrid.querySelector(".count-btn");
-  document.querySelectorAll(".count-btn").forEach(b => b.classList.remove("active"));
-  if(firstBtn) firstBtn.classList.add("active");
+  breedInput.value="";
+  locationInput.value="";
+  notesInput.value="";
+  photoInput.value="";
+  countInput.value="1";
+  document.querySelectorAll(".count-btn").forEach(b=>b.classList.remove("active"));
+  countGrid.querySelector(".count-btn").classList.add("active");
 }
 
 async function submitLog(){
-  statusEl.textContent = "Saving...";
-  let photoUrl = "";
+  statusEl.textContent="Saving…";
+  let photoUrl="";
 
   try{
     if(photoInput.files.length){
-      const fd = new FormData();
-      fd.append("file", photoInput.files[0]);
-      photoUrl = await fetch(API + "/upload", { method:"POST", body: fd })
-        .then(r => r.text());
+      const fd=new FormData();
+      fd.append("file",photoInput.files[0]);
+      photoUrl=await fetch(API+"/upload",{method:"POST",body:fd}).then(r=>r.text());
     }
 
-    await fetch(API + "/submit", {
-      method: "POST",
-      headers: {"Content-Type":"application/json"},
-      body: JSON.stringify({
-        breed: breedInput.value,
-        count: Number(countInput.value),
-        location: locationInput.value,
-        notes: notesInput.value,
+    await fetch(API+"/submit",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({
+        breed:breedInput.value,
+        count:Number(countInput.value),
+        location:locationInput.value,
+        notes:notesInput.value,
         photoUrl
       })
     });
 
-    statusEl.textContent = "Saved";
+    statusEl.textContent="Saved";
     resetForm();
     loadLogs();
-  }catch(err){
-    statusEl.textContent = "Error saving";
+  }catch{
+    statusEl.textContent="Error saving";
   }
 }
 
 async function loadLogs(){
-  rowsEl.innerHTML = "";
+  rowsEl.innerHTML="";
   try{
-    const data = await fetch(API + "/logs").then(r => r.json());
-    data.forEach(r => {
-      const photoCell = r.photoUrl
-        ? `<a href="${r.photoUrl}" target="_blank" rel="noopener noreferrer"><img class="thumb" src="${r.photoUrl}"></a>`
+    const data=await fetch(API+"/logs").then(r=>r.json());
+    data.forEach(r=>{
+      const photo=r.photoUrl
+        ? `<a href="${r.photoUrl}" target="_blank"><img class="thumb" src="${r.photoUrl}"></a>`
         : "";
-      rowsEl.innerHTML += `
+      rowsEl.innerHTML+=`
         <tr>
-          <td>${r.ts || ""}</td>
-          <td>${r.breed || ""}</td>
-          <td>${r.count || ""}</td>
-          <td>${r.location || ""}</td>
-          <td>${r.notes || ""}</td>
-          <td>${photoCell}</td>
-        </tr>
-      `;
+          <td>${r.ts||""}</td>
+          <td>${r.breed||""}</td>
+          <td>${r.count||""}</td>
+          <td>${r.location||""}</td>
+          <td>${r.notes||""}</td>
+          <td>${photo}</td>
+        </tr>`;
     });
-  }catch(err){
-    rowsEl.innerHTML = "<tr><td colspan='4'>No data yet</td></tr>";
+  }catch{
+    rowsEl.innerHTML="<tr><td colspan='6'>No data yet</td></tr>";
   }
 }
 
