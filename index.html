@@ -3,9 +3,10 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>LogDog – If you’ve seen a dog, add it to the log!</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;700&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+<title>LogDog — If you’ve seen a dog, add it to the log!!!</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;800&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
 :root{
@@ -15,41 +16,37 @@
   --ink:#f4efe6;
   --muted:#a7b0b8;
   --accent:#f5a524;
-  --accent-2:#64d1a6;
   --stroke:#2a3640;
 }
 
-*{ box-sizing:border-box; }
+*{box-sizing:border-box}
 
 body{
   margin:0;
   font-family:"Space Grotesk",sans-serif;
   color:var(--ink);
   background:
-    radial-gradient(900px 500px at 110% -10%, rgba(245,165,36,0.15), transparent 60%),
-    radial-gradient(700px 500px at -10% 120%, rgba(100,209,166,0.12), transparent 60%),
+    radial-gradient(800px 400px at 110% -10%, rgba(245,165,36,.15), transparent 60%),
+    radial-gradient(600px 400px at -10% 120%, rgba(100,209,166,.12), transparent 60%),
     var(--bg);
 }
 
 header{
-  padding:20px 16px 18px;
+  padding:18px;
   text-align:center;
   border-bottom:1px solid var(--stroke);
-  background:linear-gradient(90deg, rgba(255,255,255,0.06), transparent);
 }
 
 header h1{
-  margin:0;
   font-family:"Fraunces",serif;
+  margin:0;
   font-size:26px;
-  letter-spacing:0.03em;
 }
 
 header p{
   margin:6px 0 0;
-  font-size:14px;
   color:var(--muted);
-  letter-spacing:0.02em;
+  font-size:14px;
 }
 
 .container{
@@ -63,13 +60,11 @@ header p{
   border:1px solid var(--stroke);
   border-radius:16px;
   padding:18px;
-  box-shadow:0 12px 40px rgba(0,0,0,0.35);
-  animation:fadeUp 500ms ease;
+  box-shadow:0 12px 40px rgba(0,0,0,.35);
 }
 
 h2{
   font-family:"Fraunces",serif;
-  font-size:22px;
   margin:0 0 12px;
 }
 
@@ -78,11 +73,11 @@ label{
   margin-top:14px;
   font-size:12px;
   text-transform:uppercase;
-  letter-spacing:0.08em;
+  letter-spacing:.08em;
   color:var(--muted);
 }
 
-input,textarea{
+input,select,textarea{
   width:100%;
   margin-top:6px;
   padding:12px;
@@ -101,7 +96,7 @@ input,textarea{
 }
 
 .count-btn{
-  padding:12px 10px;
+  padding:12px;
   border-radius:10px;
   border:1px solid var(--stroke);
   background:#101820;
@@ -115,24 +110,6 @@ input,textarea{
   outline:2px solid var(--accent);
 }
 
-.file-btn{
-  display:inline-block;
-  width:100%;
-  margin-top:6px;
-  padding:12px;
-  border-radius:12px;
-  border:1px solid var(--stroke);
-  background:#0f151a;
-  color:var(--ink);
-  text-align:center;
-  cursor:pointer;
-  font-weight:600;
-}
-
-.file-btn input{
-  display:none;
-}
-
 button.primary{
   width:100%;
   padding:14px;
@@ -140,9 +117,24 @@ button.primary{
   border-radius:12px;
   border:none;
   font-size:16px;
-  font-weight:700;
+  font-weight:800;
   background:linear-gradient(120deg,var(--accent),#ffcf5a);
   color:#241600;
+  cursor:pointer;
+}
+
+.geo-row{
+  display:flex;
+  gap:8px;
+}
+
+.geo-btn{
+  flex:0 0 auto;
+  padding:12px 14px;
+  border-radius:12px;
+  border:1px solid var(--stroke);
+  background:#101820;
+  color:var(--ink);
   cursor:pointer;
 }
 
@@ -153,55 +145,40 @@ hr{
 }
 
 .table-wrap{
-  margin-top:8px;
   overflow-x:auto;
 }
 
 table{
   width:100%;
-  min-width:520px;
   border-collapse:collapse;
+  min-width:520px;
 }
 
 th,td{
   padding:10px;
   border-bottom:1px solid var(--stroke);
-  text-align:left;
   font-size:14px;
-  word-break:break-word;
+  white-space:nowrap;
 }
 
 th{
   font-size:11px;
+  color:var(--muted);
   text-transform:uppercase;
-  letter-spacing:0.08em;
-  color:var(--muted);
-}
-
-td:first-child{
-  font-size:12px;
-  color:var(--muted);
-  white-space:nowrap;
 }
 
 img.thumb{
-  width:48px;
-  height:48px;
-  object-fit:cover;
+  width:46px;
+  height:46px;
   border-radius:8px;
-  display:block;
+  object-fit:cover;
 }
 
 small{
   display:block;
+  min-height:18px;
   margin-top:8px;
   color:var(--muted);
-  min-height:20px;
-}
-
-@keyframes fadeUp{
-  from{transform:translateY(8px);opacity:0;}
-  to{transform:translateY(0);opacity:1;}
 }
 </style>
 </head>
@@ -209,150 +186,158 @@ small{
 <body>
 
 <header>
-  <h1>LogDog</h1>
+  <h1>LogDog 🐕</h1>
   <p>If you’ve seen a dog, add it to the log!!!</p>
 </header>
 
 <div class="container">
-  <div class="card">
-    <h2>New log</h2>
+<div class="card">
 
-    <label>Breed</label>
-    <input id="breed" placeholder="Dog breed">
+<h2>New log</h2>
 
-    <label>Count</label>
-    <div class="count-grid" id="countGrid">
-      <button class="count-btn active" data-count="1">1</button>
-      <button class="count-btn" data-count="2">2</button>
-      <button class="count-btn" data-count="3">3</button>
-      <button class="count-btn" data-count="4">4</button>
-      <button class="count-btn" data-count="10">More</button>
-    </div>
-    <input id="count" type="hidden" value="1">
+<label>Breed</label>
+<select id="breed">
+  <option value="">Select breed…</option>
+  <option>Labrador</option>
+  <option>Golden Retriever</option>
+  <option>German Shepherd</option>
+  <option>French Bulldog</option>
+  <option>Poodle</option>
+  <option>Spaniel</option>
+  <option>Terrier</option>
+  <option value="other">Other…</option>
+</select>
+<input id="breedOther" placeholder="Enter breed" style="display:none">
 
-    <label>Location</label>
-    <input id="location" placeholder="Where?">
+<label>Count</label>
+<div class="count-grid" id="countGrid">
+  <button class="count-btn active" data-count="1">1</button>
+  <button class="count-btn" data-count="2">2</button>
+  <button class="count-btn" data-count="3">3</button>
+  <button class="count-btn" data-count="4">4</button>
+  <button class="count-btn" data-count="10">More</button>
+</div>
+<input id="count" type="hidden" value="1">
 
-    <label>Notes</label>
-    <textarea id="notes" rows="2"></textarea>
+<label>Location</label>
+<div class="geo-row">
+  <input id="location" placeholder="Where?">
+  <button type="button" class="geo-btn" id="geoBtn">📍</button>
+</div>
 
-    <label>Photo</label>
-    <label class="file-btn">
-      Add photo
-      <input id="photo" type="file" accept="image/*" capture="environment">
-    </label>
+<label>Notes</label>
+<textarea id="notes" rows="2"></textarea>
 
-    <button class="primary" id="submitBtn">Submit</button>
-    <small id="status"></small>
+<label>Photo</label>
+<input id="photo" type="file" accept="image/*" capture="environment">
 
-    <hr>
+<button class="primary" id="submitBtn">Submit</button>
+<small id="status"></small>
 
-    <h2>History</h2>
+<hr>
 
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Time</th>
-            <th>Breed</th>
-            <th>#</th>
-            <th>Location</th>
-            <th>Notes</th>
-            <th>Photo</th>
-          </tr>
-        </thead>
-        <tbody id="rows"></tbody>
-      </table>
-    </div>
+<h2>History</h2>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+  <th>Time</th>
+  <th>Breed</th>
+  <th>#</th>
+  <th>Location</th>
+  <th>Notes</th>
+  <th>Photo</th>
+</tr>
+</thead>
+<tbody id="rows"></tbody>
+</table>
+</div>
 
-  </div>
+</div>
 </div>
 
 <script>
-const API = "https://fn-logdog2-cddwend9gva2gxa8.westeurope-01.azurewebsites.net/api";
-const statusEl = document.getElementById("status");
-const rowsEl = document.getElementById("rows");
-const countInput = document.getElementById("count");
-const countGrid = document.getElementById("countGrid");
-const breedInput = document.getElementById("breed");
-const locationInput = document.getElementById("location");
-const notesInput = document.getElementById("notes");
-const photoInput = document.getElementById("photo");
+const API="https://fn-logdog2-cddwend9gva2gxa8.westeurope-01.azurewebsites.net/api";
 
-countGrid.addEventListener("click", e=>{
-  const btn=e.target.closest(".count-btn");
-  if(!btn)return;
-  countInput.value=btn.dataset.count;
-  document.querySelectorAll(".count-btn").forEach(b=>b.classList.remove("active"));
-  btn.classList.add("active");
-});
+const statusEl=document.getElementById("status");
+const rowsEl=document.getElementById("rows");
+const breedSel=document.getElementById("breed");
+const breedOther=document.getElementById("breedOther");
+const countInput=document.getElementById("count");
+const countGrid=document.getElementById("countGrid");
+const locationInput=document.getElementById("location");
+const notesInput=document.getElementById("notes");
+const photoInput=document.getElementById("photo");
 
-document.getElementById("submitBtn").addEventListener("click", submitLog);
+breedSel.onchange=()=>{
+  breedOther.style.display = breedSel.value==="other" ? "block":"none";
+};
 
-function resetForm(){
-  breedInput.value="";
-  locationInput.value="";
-  notesInput.value="";
-  photoInput.value="";
-  countInput.value="1";
-  document.querySelectorAll(".count-btn").forEach(b=>b.classList.remove("active"));
-  countGrid.querySelector(".count-btn").classList.add("active");
-}
+countGrid.onclick=e=>{
+  const b=e.target.closest(".count-btn");
+  if(!b)return;
+  countInput.value=b.dataset.count;
+  document.querySelectorAll(".count-btn").forEach(x=>x.classList.remove("active"));
+  b.classList.add("active");
+};
+
+document.getElementById("geoBtn").onclick=()=>{
+  if(!navigator.geolocation){statusEl.textContent="No GPS";return;}
+  statusEl.textContent="Getting location…";
+  navigator.geolocation.getCurrentPosition(async p=>{
+    const {latitude,longitude}=p.coords;
+    try{
+      const r=await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`);
+      const d=await r.json();
+      locationInput.value=d.address?.suburb||d.address?.town||d.address?.city||`${latitude.toFixed(5)},${longitude.toFixed(5)}`;
+      statusEl.textContent="Location added";
+    }catch{
+      locationInput.value=`${latitude.toFixed(5)},${longitude.toFixed(5)}`;
+    }
+  },()=>statusEl.textContent="Location denied");
+};
+
+document.getElementById("submitBtn").onclick=submitLog;
 
 async function submitLog(){
   statusEl.textContent="Saving…";
   let photoUrl="";
-
-  try{
-    if(photoInput.files.length){
-      const fd=new FormData();
-      fd.append("file",photoInput.files[0]);
-      photoUrl=await fetch(API+"/upload",{method:"POST",body:fd}).then(r=>r.text());
-    }
-
-    await fetch(API+"/submit",{
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({
-        breed:breedInput.value,
-        count:Number(countInput.value),
-        location:locationInput.value,
-        notes:notesInput.value,
-        photoUrl
-      })
-    });
-
-    statusEl.textContent="Saved";
-    resetForm();
-    loadLogs();
-  }catch{
-    statusEl.textContent="Error saving";
+  if(photoInput.files.length){
+    const fd=new FormData();
+    fd.append("file",photoInput.files[0]);
+    photoUrl=await fetch(API+"/upload",{method:"POST",body:fd}).then(r=>r.text());
   }
+  await fetch(API+"/submit",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({
+      breed: breedSel.value==="other"?breedOther.value:breedSel.value,
+      count:Number(countInput.value),
+      location:locationInput.value,
+      notes:notesInput.value,
+      photoUrl
+    })
+  });
+  statusEl.textContent="Saved";
+  locationInput.value=notesInput.value=breedOther.value="";
+  loadLogs();
 }
 
 async function loadLogs(){
   rowsEl.innerHTML="";
-  try{
-    const data=await fetch(API+"/logs").then(r=>r.json());
-    data.forEach(r=>{
-      const photo=r.photoUrl
-        ? `<a href="${r.photoUrl}" target="_blank"><img class="thumb" src="${r.photoUrl}"></a>`
-        : "";
-      rowsEl.innerHTML+=`
-        <tr>
-          <td>${r.ts||""}</td>
-          <td>${r.breed||""}</td>
-          <td>${r.count||""}</td>
-          <td>${r.location||""}</td>
-          <td>${r.notes||""}</td>
-          <td>${photo}</td>
-        </tr>`;
-    });
-  }catch{
-    rowsEl.innerHTML="<tr><td colspan='6'>No data yet</td></tr>";
-  }
+  const data=await fetch(API+"/logs").then(r=>r.json());
+  data.forEach(r=>{
+    rowsEl.innerHTML+=`
+      <tr>
+        <td>${r.ts||""}</td>
+        <td>${r.breed||""}</td>
+        <td>${r.count||""}</td>
+        <td>${r.location||""}</td>
+        <td>${r.notes||""}</td>
+        <td>${r.photoUrl?`<a href="${r.photoUrl}" target="_blank"><img class="thumb" src="${r.photoUrl}"></a>`:""}</td>
+      </tr>`;
+  });
 }
-
 loadLogs();
 </script>
 
