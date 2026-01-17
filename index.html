@@ -244,11 +244,11 @@ small{
 <label>Notes</label>
 <textarea id="notes" rows="2"></textarea>
 
-<label>Photo</label>
-<label class="file-btn">
-  Upload photo
-  <input id="photo" type="file" accept="image/*">
-</label>
+<label for="photo">Photo</label>
+<input id="photo" type="file" accept="image/*">
+<small id="photoName"></small>
+
+
 
 <button type="button" class="primary" id="submitBtn">Submit</button>
 <small id="status"></small>
@@ -295,6 +295,11 @@ const notesInput=document.getElementById("notes");
 const photoInput=document.getElementById("photo");
 const statusEl=document.getElementById("status");
 const rowsEl=document.getElementById("rows");
+
+document.getElementById("photo").addEventListener("change", e => {
+  document.getElementById("photoName").textContent =
+    e.target.files.length ? e.target.files[0].name : "";
+});
 
 window.addEventListener("load",()=>{
   breedInput.value="";
