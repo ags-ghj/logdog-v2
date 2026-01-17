@@ -151,7 +151,9 @@ img.thumb{width:44px;height:44px;border-radius:8px;object-fit:cover;cursor:point
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-const API="https://fn-logdog2-cddwend9gva2gxa8.westeurope-01.azurewebsites.net/api";
+const API=location.hostname==="localhost" || location.hostname==="127.0.0.1"
+  ? "http://localhost:7071/api"
+  : "https://fn-logdog2-cddwend9gva2gxa8.westeurope-01.azurewebsites.net/api";
 
 const rowsEl=document.getElementById("rows");
 const leagueEl=document.getElementById("league");

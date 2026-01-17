@@ -190,7 +190,9 @@ small{display:block;margin-top:6px;color:var(--muted)}
 </div>
 
 <script>
-const API="https://fn-logdog2-cddwend9gva2gxa8.westeurope-01.azurewebsites.net/api";
+const API=location.hostname==="localhost" || location.hostname==="127.0.0.1"
+  ? "http://localhost:7071/api"
+  : "https://fn-logdog2-cddwend9gva2gxa8.westeurope-01.azurewebsites.net/api";
 const LAST_LOC="logdog_last_location";
 
 const rowsEl=document.getElementById("rows");
