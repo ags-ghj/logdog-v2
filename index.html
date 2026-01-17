@@ -48,12 +48,18 @@ button.primary{
   font-weight:800;background:linear-gradient(120deg,var(--accent),#ffcf5a);
   color:#241600;cursor:pointer
 }
+.file-btn{
+  display:block;margin-top:6px;padding:12px;border-radius:12px;
+  border:1px solid var(--stroke);background:#0f151a;color:var(--ink);
+  text-align:center;cursor:pointer;font-weight:600
+}
+.file-btn input{display:none}
 hr{border:0;border-top:1px solid var(--stroke);margin:22px 0}
 .table-wrap{overflow-x:auto}
 table{width:100%;min-width:800px;border-collapse:collapse}
 th,td{padding:10px;border-bottom:1px solid var(--stroke);white-space:nowrap;font-size:14px}
 th{font-size:11px;color:var(--muted);text-transform:uppercase}
-img.thumb{width:44px;height:44px;border-radius:8px;object-fit:cover}
+img.thumb{width:44px;height:44px;border-radius:8px;object-fit:cover;cursor:pointer}
 small{display:block;margin-top:8px;color:var(--muted);min-height:18px}
 </style>
 </head>
@@ -226,7 +232,10 @@ small{display:block;margin-top:8px;color:var(--muted);min-height:18px}
 <textarea id="notes" rows="2"></textarea>
 
 <label>Photo</label>
-<input id="photo" type="file" accept="image/*" capture="environment">
+<label class="file-btn">
+  Upload photo
+  <input id="photo" type="file" accept="image/*" capture="environment">
+</label>
 
 <button type="button" class="primary" id="submitBtn">Submit</button>
 <small id="status"></small>
@@ -258,33 +267,37 @@ const photoInput=document.getElementById("photo");
 const statusEl=document.getElementById("status");
 const rowsEl=document.getElementById("rows");
 
-if(localStorage.getItem(LAST_LOC)){
-  locationInput.value=localStorage.getItem(LAST_LOC);
-}
+window.addEventListener("load",()=>{
+  breedInput.value="";
+  notesInput.value="";
+  photoInput.value="";
+  countInput.value="1";
+  document.querySelectorAll(".count-btn").forEach(b=>b.classList.remove("active"));
+  document.querySelector(".count-btn[data-count='1']").classList.add("active");
+  if(localStorage.getItem(LAST_LOC)){
+    locationInput.value=localStorage.getItem(LAST_LOC);
+  }
+});
 
-document.getElementById("countGrid").addEventListener("click",e=>{
+document.getElementById("countGrid").onclick=e=>{
   const b=e.target.closest(".count-btn");
-  if(!b) return;
+  if(!b)return;
   document.querySelectorAll(".count-btn").forEach(x=>x.classList.remove("active"));
   b.classList.add("active");
   countInput.value=b.dataset.count;
-});
+};
 
 document.getElementById("geoBtn").onclick=()=>{
-  if(!navigator.geolocation){
-    statusEl.textContent="Location not supported";
-    return;
-  }
-  statusEl.textContent="Getting location…";
+  if(!navigator.geolocation)return;
   navigator.geolocation.getCurrentPosition(p=>{
     const loc=`${p.coords.latitude.toFixed(5)}, ${p.coords.longitude.toFixed(5)}`;
     locationInput.value=loc;
     localStorage.setItem(LAST_LOC,loc);
     statusEl.textContent="Location added";
-  },()=>statusEl.textContent="Location denied");
+  });
 };
 
-document.getElementById("submitBtn").addEventListener("click",submitLog);
+document.getElementById("submitBtn").onclick=submitLog;
 
 function fmt(ts){
   return new Date(ts).toLocaleString(undefined,{
@@ -297,15 +310,13 @@ async function submitLog(){
   try{
     statusEl.textContent="Saving…";
     let photoUrl="";
-
     if(photoInput.files.length){
       const fd=new FormData();
       fd.append("file",photoInput.files[0]);
       const up=await fetch(API+"/upload",{method:"POST",body:fd});
-      if(!up.ok) throw new Error("Upload failed");
+      if(!up.ok)throw new Error();
       photoUrl=await up.text();
     }
-
     const res=await fetch(API+"/submit",{
       method:"POST",
       headers:{"Content-Type":"application/json"},
@@ -317,22 +328,19 @@ async function submitLog(){
         photoUrl
       })
     });
-
-    if(!res.ok) throw new Error("Submit failed");
-
+    if(!res.ok)throw new Error();
     statusEl.textContent="Saved";
     notesInput.value="";
     photoInput.value="";
     loadLogs();
-  }catch(err){
+  }catch{
     statusEl.textContent="Error saving";
-    console.error(err);
   }
 }
 
 async function loadLogs(){
   const r=await fetch(API+"/logs");
-  if(!r.ok) return;
+  if(!r.ok)return;
   const data=await r.json();
   rowsEl.innerHTML="";
   data.forEach(x=>{
@@ -343,7 +351,7 @@ async function loadLogs(){
         <td>${x.count||""}</td>
         <td>${x.location||""}</td>
         <td>${x.notes||""}</td>
-        <td>${x.photoUrl?`<img class="thumb" src="${x.photoUrl}">`:""}</td>
+        <td>${x.photoUrl?`<a href="${x.photoUrl}" target="_blank"><img class="thumb" src="${x.photoUrl}"></a>`:""}</td>
       </tr>`;
   });
 }
