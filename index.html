@@ -201,13 +201,33 @@ photo.addEventListener("change",e=>{
   photoName.textContent=e.target.files[0]?.name||"";
 });
 
-geoBtn.onclick=()=>{
-  navigator.geolocation?.getCurrentPosition(p=>{
-    const loc=`${p.coords.latitude.toFixed(5)}, ${p.coords.longitude.toFixed(5)}`;
-    location.value=loc;
-    localStorage.setItem(LAST_LOC,loc);
-  });
-};
+geoBtn.addEventListener("click", () => {
+  if (!navigator.geolocation) {
+    status.textContent = "Location not supported";
+    return;
+  }
+
+  status.textContent = "Getting location…";
+
+  navigator.geolocation.getCurrentPosition(
+    p => {
+      const loc = `${p.coords.latitude.toFixed(5)}, ${p.coords.longitude.toFixed(5)}`;
+      location.value = loc;
+      localStorage.setItem(LAST_LOC, loc);
+      status.textContent = "Location added";
+    },
+    err => {
+      status.textContent =
+        err.code === 1 ? "Location permission denied — tap again to retry"
+                      : "Location unavailable — try again";
+    },
+    {
+      enableHighAccuracy: true,
+      timeout: 10000,
+      maximumAge: 60000
+    }
+  );
+});
 
 countGrid.onclick=e=>{
   const b=e.target.closest(".count-btn");
