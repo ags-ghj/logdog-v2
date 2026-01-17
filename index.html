@@ -148,6 +148,7 @@ img.thumb{
   height:48px;
   object-fit:cover;
   border-radius:8px;
+  display:block;
 }
 
 small{
@@ -218,8 +219,13 @@ const API = "https://fn-logdog-d4fsggcrdudyh8c7.westeurope-01.azurewebsites.net/
 const statusEl = document.getElementById("status");
 const rowsEl = document.getElementById("rows");
 const countInput = document.getElementById("count");
+const countGrid = document.getElementById("countGrid");
+const breedInput = document.getElementById("breed");
+const locationInput = document.getElementById("location");
+const notesInput = document.getElementById("notes");
+const photoInput = document.getElementById("photo");
 
-document.getElementById("countGrid").addEventListener("click", (e) => {
+countGrid.addEventListener("click", (e) => {
   const btn = e.target.closest(".count-btn");
   if(!btn) return;
   countInput.value = btn.dataset.count;
@@ -229,14 +235,25 @@ document.getElementById("countGrid").addEventListener("click", (e) => {
 
 document.getElementById("submitBtn").addEventListener("click", submitLog);
 
+function resetForm(){
+  breedInput.value = "";
+  locationInput.value = "";
+  notesInput.value = "";
+  photoInput.value = "";
+  countInput.value = "1";
+  const firstBtn = countGrid.querySelector(".count-btn");
+  document.querySelectorAll(".count-btn").forEach(b => b.classList.remove("active"));
+  if(firstBtn) firstBtn.classList.add("active");
+}
+
 async function submitLog(){
-  statusEl.textContent = "Saving…";
-  let photoUrl = null;
+  statusEl.textContent = "Saving...";
+  let photoUrl = "";
 
   try{
-    if(photo.files.length){
+    if(photoInput.files.length){
       const fd = new FormData();
-      fd.append("file", photo.files[0]);
+      fd.append("file", photoInput.files[0]);
       photoUrl = await fetch(API + "/upload", { method:"POST", body: fd })
         .then(r => r.text());
     }
@@ -245,15 +262,16 @@ async function submitLog(){
       method: "POST",
       headers: {"Content-Type":"application/json"},
       body: JSON.stringify({
-        breed: breed.value,
+        breed: breedInput.value,
         count: Number(countInput.value),
-        location: location.value,
-        notes: notes.value,
+        location: locationInput.value,
+        notes: notesInput.value,
         photoUrl
       })
     });
 
     statusEl.textContent = "Saved";
+    resetForm();
     loadLogs();
   }catch(err){
     statusEl.textContent = "Error saving";
@@ -265,12 +283,15 @@ async function loadLogs(){
   try{
     const data = await fetch(API + "/logs").then(r => r.json());
     data.forEach(r => {
+      const photoCell = r.photoUrl
+        ? `<a href="${r.photoUrl}" target="_blank" rel="noopener noreferrer"><img class="thumb" src="${r.photoUrl}"></a>`
+        : "";
       rowsEl.innerHTML += `
         <tr>
           <td>${r.ts || ""}</td>
           <td>${r.breed || ""}</td>
           <td>${r.count || ""}</td>
-          <td>${r.photoUrl ? `<img class="thumb" src="${r.photoUrl}">` : ""}</td>
+          <td>${photoCell}</td>
         </tr>
       `;
     });
