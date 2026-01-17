@@ -1,211 +1,282 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>LogDog</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;700&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+
 <style>
+:root{
+  --bg: #0f1418;
+  --panel: #141b21;
+  --panel-2: #1b242c;
+  --ink: #f4efe6;
+  --muted: #a7b0b8;
+  --accent: #f5a524;
+  --accent-2: #64d1a6;
+  --stroke: #2a3640;
+}
+
+*{ box-sizing: border-box; }
+
 body{
   margin:0;
-  font-family:system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
-  background:#121212;
-  color:#eaeaea
+  font-family:"Space Grotesk", sans-serif;
+  color:var(--ink);
+  background:
+    radial-gradient(900px 500px at 110% -10%, rgba(245,165,36,0.15), transparent 60%),
+    radial-gradient(700px 500px at -10% 120%, rgba(100,209,166,0.12), transparent 60%),
+    var(--bg);
 }
+
 header{
-  padding:14px;
+  padding:18px;
   text-align:center;
-  font-weight:600;
-  background:#000
+  font-family:"Fraunces", serif;
+  letter-spacing:0.02em;
+  font-size:24px;
+  background:linear-gradient(90deg, rgba(255,255,255,0.06), transparent);
+  border-bottom:1px solid var(--stroke);
 }
+
 .container{
-  max-width:480px;
+  max-width:560px;
   margin:0 auto;
-  padding:16px
+  padding:18px;
 }
+
+.card{
+  background:linear-gradient(180deg, var(--panel), var(--panel-2));
+  border:1px solid var(--stroke);
+  border-radius:16px;
+  padding:18px;
+  box-shadow:0 12px 40px rgba(0,0,0,0.35);
+  animation:fadeUp 500ms ease;
+}
+
+h2{
+  font-family:"Fraunces", serif;
+  font-size:22px;
+  margin:0 0 12px 0;
+}
+
 label{
   display:block;
   margin-top:14px;
-  font-size:14px
+  font-size:13px;
+  text-transform:uppercase;
+  letter-spacing:0.08em;
+  color:var(--muted);
 }
-input,textarea{
+
+input, textarea{
   width:100%;
-  padding:14px;
   margin-top:6px;
+  padding:12px 12px;
   border-radius:12px;
-  border:none;
-  font-size:16px;
-  background:#1e1e1e;
-  color:#eaeaea
+  border:1px solid var(--stroke);
+  background:#0f151a;
+  color:var(--ink);
+  font-size:15px;
 }
-button{
+
+button.primary{
   width:100%;
   padding:14px;
   margin-top:18px;
   border-radius:12px;
   border:none;
-  font-size:18px;
-  font-weight:600;
-  background:#4da3ff;
-  color:#000;
-  cursor:pointer
+  font-size:16px;
+  font-weight:700;
+  background:linear-gradient(120deg, var(--accent), #ffcf5a);
+  color:#241600;
+  cursor:pointer;
 }
+
 .count-grid{
   display:grid;
   grid-template-columns:repeat(5,1fr);
-  gap:10px;
-  margin-top:8px
+  gap:8px;
+  margin-top:6px;
 }
+
 .count-btn{
-  padding:14px;
-  border-radius:12px;
-  border:none;
-  background:#2a2a2a;
-  color:#eaeaea;
-  font-size:18px;
-  font-weight:600
+  padding:12px 10px;
+  border-radius:10px;
+  border:1px solid var(--stroke);
+  background:#101820;
+  color:var(--ink);
+  font-size:16px;
+  font-weight:600;
+  cursor:pointer;
 }
+
 .count-btn.active{
-  outline:2px solid #4da3ff
+  outline:2px solid var(--accent);
 }
+
 hr{
   border:0;
-  border-top:1px solid #333;
-  margin:24px 0
+  border-top:1px solid var(--stroke);
+  margin:20px 0;
 }
+
 table{
   width:100%;
-  border-collapse:collapse
+  border-collapse:collapse;
+  margin-top:6px;
 }
+
 th,td{
   padding:10px;
-  border-bottom:1px solid #333;
+  border-bottom:1px solid var(--stroke);
   text-align:left;
-  font-size:14px
+  font-size:14px;
 }
+
+th{
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:0.08em;
+  color:var(--muted);
+}
+
 img.thumb{
   width:48px;
   height:48px;
   object-fit:cover;
-  border-radius:6px
+  border-radius:8px;
 }
+
 small{
-  color:#aaa
+  display:block;
+  margin-top:8px;
+  color:var(--muted);
+  min-height:20px;
+}
+
+@keyframes fadeUp{
+  from{ transform:translateY(8px); opacity:0; }
+  to{ transform:translateY(0); opacity:1; }
 }
 </style>
 </head>
-
 <body>
 
 <header>LogDog</header>
 
 <div class="container">
+  <div class="card">
+    <h2>New log</h2>
 
-<h2>New log</h2>
+    <label for="breed">Breed</label>
+    <input id="breed" placeholder="Dog breed">
 
-<label>
-  Breed
-  <input id="breed" placeholder="Dog breed">
-</label>
+    <label>Count</label>
+    <div class="count-grid" id="countGrid">
+      <button class="count-btn active" data-count="1">1</button>
+      <button class="count-btn" data-count="2">2</button>
+      <button class="count-btn" data-count="3">3</button>
+      <button class="count-btn" data-count="4">4</button>
+      <button class="count-btn" data-count="10">More</button>
+    </div>
+    <input id="count" type="hidden" value="1">
 
-<label>Count</label>
-<div class="count-grid">
-  <button class="count-btn active" onclick="setCount(1)">1</button>
-  <button class="count-btn" onclick="setCount(2)">2</button>
-  <button class="count-btn" onclick="setCount(3)">3</button>
-  <button class="count-btn" onclick="setCount(4)">4</button>
-  <button class="count-btn" onclick="setCount(10)">More</button>
-</div>
-<input id="count" type="hidden" value="1">
+    <label for="location">Location</label>
+    <input id="location" placeholder="Where?">
 
-<label>
-  Location
-  <input id="location" placeholder="Where?">
-</label>
+    <label for="notes">Notes</label>
+    <textarea id="notes" rows="2"></textarea>
 
-<label>
-  Notes
-  <textarea id="notes" rows="2"></textarea>
-</label>
+    <label for="photo">Photo</label>
+    <input id="photo" type="file" accept="image/*" capture="environment">
 
-<label>
-  Photo
-  <input id="photo" type="file" accept="image/*" capture="environment">
-</label>
+    <button class="primary" id="submitBtn">Submit</button>
+    <small id="status"></small>
 
-<button onclick="submitLog()">Submit</button>
-<small id="status"></small>
+    <hr>
 
-<hr>
-
-<h2>History</h2>
-
-<table>
-  <thead>
-    <tr>
-      <th>Time</th>
-      <th>Breed</th>
-      <th>#</th>
-      <th>Photo</th>
-    </tr>
-  </thead>
-  <tbody id="rows"></tbody>
-</table>
-
+    <h2>History</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Breed</th>
+          <th>#</th>
+          <th>Photo</th>
+        </tr>
+      </thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
 </div>
 
 <script>
 const API = "https://fn-logdog-d4fsggcrdudyh8c7.westeurope-01.azurewebsites.net/api";
+const statusEl = document.getElementById("status");
+const rowsEl = document.getElementById("rows");
+const countInput = document.getElementById("count");
 
-function setCount(n){
-  count.value = n;
-  document.querySelectorAll(".count-btn")
-    .forEach(b => b.classList.remove("active"));
-  event.target.classList.add("active");
-}
+document.getElementById("countGrid").addEventListener("click", (e) => {
+  const btn = e.target.closest(".count-btn");
+  if(!btn) return;
+  countInput.value = btn.dataset.count;
+  document.querySelectorAll(".count-btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+});
+
+document.getElementById("submitBtn").addEventListener("click", submitLog);
 
 async function submitLog(){
-  status.textContent = "Saving…";
+  statusEl.textContent = "Saving…";
   let photoUrl = null;
 
-  if(photo.files.length){
-    const fd = new FormData();
-    fd.append("file", photo.files[0]);
-    photoUrl = await fetch(API + "/upload", {
+  try{
+    if(photo.files.length){
+      const fd = new FormData();
+      fd.append("file", photo.files[0]);
+      photoUrl = await fetch(API + "/upload", { method:"POST", body: fd })
+        .then(r => r.text());
+    }
+
+    await fetch(API + "/submit", {
       method: "POST",
-      body: fd
-    }).then(r => r.text());
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({
+        breed: breed.value,
+        count: Number(countInput.value),
+        location: location.value,
+        notes: notes.value,
+        photoUrl
+      })
+    });
+
+    statusEl.textContent = "Saved";
+    loadLogs();
+  }catch(err){
+    statusEl.textContent = "Error saving";
   }
-
-  await fetch(API + "/submit", {
-    method: "POST",
-    headers: {"Content-Type":"application/json"},
-    body: JSON.stringify({
-      breed: breed.value,
-      count: Number(count.value),
-      location: location.value,
-      notes: notes.value,
-      photoUrl
-    })
-  });
-
-  status.textContent = "Saved";
-  loadLogs();
 }
 
 async function loadLogs(){
-  const data = await fetch(API + "/logs").then(r => r.json());
-  rows.innerHTML = "";
-  data.forEach(r => {
-    rows.innerHTML += `
-      <tr>
-        <td>${r.ts || ""}</td>
-        <td>${r.breed || ""}</td>
-        <td>${r.count || ""}</td>
-        <td>${r.photoUrl ? `<img class="thumb" src="${r.photoUrl}">` : ""}</td>
-      </tr>
-    `;
-  });
+  rowsEl.innerHTML = "";
+  try{
+    const data = await fetch(API + "/logs").then(r => r.json());
+    data.forEach(r => {
+      rowsEl.innerHTML += `
+        <tr>
+          <td>${r.ts || ""}</td>
+          <td>${r.breed || ""}</td>
+          <td>${r.count || ""}</td>
+          <td>${r.photoUrl ? `<img class="thumb" src="${r.photoUrl}">` : ""}</td>
+        </tr>
+      `;
+    });
+  }catch(err){
+    rowsEl.innerHTML = "<tr><td colspan='4'>No data yet</td></tr>";
+  }
 }
 
 loadLogs();
