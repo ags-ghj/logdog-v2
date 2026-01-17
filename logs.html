@@ -29,20 +29,43 @@ header h1{margin:0;font-family:"Fraunces",serif}
 }
 h2{margin:0 0 12px;font-family:"Fraunces",serif}
 .table-wrap{overflow-x:auto}
-table{width:100%;min-width:700px;border-collapse:collapse}
-th,td{padding:10px;border-bottom:1px solid var(--stroke);white-space:nowrap}
+table{width:100%;border-collapse:collapse}
+th,td{
+  padding:10px;
+  border-bottom:1px solid var(--stroke);
+  font-size:14px;
+  text-align:left;
+  vertical-align:middle;
+}
 th{font-size:11px;color:var(--muted);text-transform:uppercase}
 img.thumb{width:44px;height:44px;border-radius:8px;object-fit:cover;cursor:pointer}
-#map{height:360px;border-radius:14px;border:1px solid var(--stroke)}
-.badge{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  width:28px;
-  height:28px;
-  border-radius:50%;
+#map{height:340px;border-radius:14px;border:1px solid var(--stroke)}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+}
+.stat{
   background:#101820;
   border:1px solid var(--stroke);
+  border-radius:14px;
+  padding:14px;
+  text-align:center;
+}
+.stat strong{display:block;font-size:22px}
+.stat span{font-size:12px;color:var(--muted)}
+
+.badge{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:26px;height:26px;border-radius:50%;
+  background:#101820;border:1px solid var(--stroke)
+}
+
+/* Mobile */
+@media(max-width:700px){
+  .stats{grid-template-columns:repeat(2,1fr)}
+  table{font-size:13px}
 }
 </style>
 </head>
@@ -59,138 +82,154 @@ img.thumb{width:44px;height:44px;border-radius:8px;object-fit:cover;cursor:point
 
 <div class="container">
 
-<!-- League table -->
+<!-- DAILY STATS -->
+<div class="card">
+  <div class="stats">
+    <div class="stat"><strong id="sTotal">0</strong><span>Total logs</span></div>
+    <div class="stat"><strong id="sDogs">0</strong><span>Total dogs</span></div>
+    <div class="stat"><strong id="sToday">0</strong><span>Today</span></div>
+    <div class="stat"><strong id="sYesterday">0</strong><span>Yesterday</span></div>
+  </div>
+</div>
+
+<!-- LEAGUE -->
 <div class="card">
   <h2>Breed league</h2>
   <div class="table-wrap">
     <table>
-    <colgroup>
+      <colgroup>
         <col style="width:48px">
         <col>
         <col style="width:120px">
-    </colgroup>
-    <thead>
-        <tr>
-        <th>#</th>
-        <th>Breed</th>
-        <th>Dogs seen</th>
-        </tr>
-    </thead>
-    <tbody id="league"></tbody>
+      </colgroup>
+      <thead>
+        <tr><th>#</th><th>Breed</th><th>Dogs seen</th></tr>
+      </thead>
+      <tbody id="league"></tbody>
     </table>
   </div>
 </div>
 
-<!-- Map -->
+<!-- MAP -->
 <div class="card">
   <h2>Where dogs were seen</h2>
   <div id="map"></div>
-  <small style="color:var(--muted)">Only entries saved with GPS coordinates appear on the map.</small>
 </div>
 
-<!-- Full log -->
+<!-- FULL LOG -->
 <div class="card">
   <h2>All sightings</h2>
   <div class="table-wrap">
-<table>
-  <colgroup>
-    <col style="width:160px">
-    <col style="width:180px">
-    <col style="width:60px">
-    <col style="width:200px">
-    <col>
-    <col style="width:70px">
-  </colgroup>
-  <thead>
-    <tr>
-      <th>Time</th>
-      <th>Breed</th>
-      <th>#</th>
-      <th>Location</th>
-      <th>Notes</th>
-      <th>Photo</th>
-    </tr>
-  </thead>
-  <tbody id="rows"></tbody>
-</table>
+    <table>
+      <colgroup>
+        <col style="width:150px">
+        <col style="width:180px">
+        <col style="width:60px">
+        <col style="width:200px">
+        <col>
+        <col style="width:70px">
+      </colgroup>
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Breed</th>
+          <th>#</th>
+          <th>Location</th>
+          <th>Notes</th>
+          <th>Photo</th>
+        </tr>
+      </thead>
+      <tbody id="rows"></tbody>
+    </table>
   </div>
 </div>
 
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
 <script>
 const API="https://fn-logdog2-cddwend9gva2gxa8.westeurope-01.azurewebsites.net/api";
 
 const rowsEl=document.getElementById("rows");
 const leagueEl=document.getElementById("league");
 
-// ---------- helpers ----------
+const sTotal=document.getElementById("sTotal");
+const sDogs=document.getElementById("sDogs");
+const sToday=document.getElementById("sToday");
+const sYesterday=document.getElementById("sYesterday");
+
 function fmt(ts){
   return new Date(ts).toLocaleString(undefined,{
     weekday:"short",day:"2-digit",month:"short",
     hour:"2-digit",minute:"2-digit"
   });
 }
-
+function isSameDay(a,b){
+  return a.getFullYear()===b.getFullYear() &&
+         a.getMonth()===b.getMonth() &&
+         a.getDate()===b.getDate();
+}
 function parseLatLng(loc){
-  if(!loc) return null;
-  const m=loc.match(/^(-?\d+(\.\d+)?),\s*(-?\d+(\.\d+)?)$/);
-  if(!m) return null;
-  return {lat:parseFloat(m[1]),lng:parseFloat(m[3])};
+  const m=loc?.match(/^(-?\d+(\.\d+)?),\s*(-?\d+(\.\d+)?)$/);
+  return m?{lat:+m[1],lng:+m[3]}:null;
 }
 
-// ---------- map ----------
 const map=L.map("map").setView([54,-2],6);
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{
-  attribution:"© OpenStreetMap"
-}).addTo(map);
+L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
 
-// ---------- load ----------
 async function load(){
   const r=await fetch(API+"/logs");
   if(!r.ok) return;
   const data=await r.json();
 
-  // FULL TABLE
   rowsEl.innerHTML="";
+  leagueEl.innerHTML="";
+
+  let totalDogs=0, today=0, yesterday=0;
+  const now=new Date();
+  const y=new Date(now); y.setDate(y.getDate()-1);
+
+  const tally={};
+
   data.forEach(x=>{
+    const c=Number(x.count)||1;
+    totalDogs+=c;
+
+    const d=new Date(x.ts);
+    if(isSameDay(d,now)) today+=c;
+    if(isSameDay(d,y)) yesterday+=c;
+
+    tally[x.breed||"Unknown"]=(tally[x.breed||"Unknown"]||0)+c;
+
     rowsEl.innerHTML+=`
       <tr>
         <td>${fmt(x.ts)}</td>
         <td>${x.breed||""}</td>
-        <td>${x.count||""}</td>
+        <td>${c}</td>
         <td>${x.location||""}</td>
         <td>${x.notes||""}</td>
         <td>${x.photoUrl?`<a href="${x.photoUrl}" target="_blank"><img class="thumb" src="${x.photoUrl}"></a>`:""}</td>
       </tr>`;
-  });
-
-  // LEAGUE TABLE
-  const tally={};
-  data.forEach(x=>{
-    const b=x.breed||"Unknown";
-    tally[b]=(tally[b]||0)+(Number(x.count)||1);
-  });
-  const sorted=Object.entries(tally).sort((a,b)=>b[1]-a[1]);
-  leagueEl.innerHTML="";
-  sorted.forEach(([breed,c],i)=>{
-    leagueEl.innerHTML+=`
-      <tr>
-        <td><span class="badge">${i+1}</span></td>
-        <td>${breed}</td>
-        <td>${c}</td>
-      </tr>`;
-  });
-
-  // MAP
-  data.forEach(x=>{
+    
     const p=parseLatLng(x.location);
-    if(!p) return;
-    L.marker([p.lat,p.lng]).addTo(map)
-      .bindPopup(`<b>${x.breed||"Dog"}</b><br>${fmt(x.ts)}<br>${x.count||1} dog(s)`);
+    if(p) L.marker([p.lat,p.lng]).addTo(map);
   });
+
+  sTotal.textContent=data.length;
+  sDogs.textContent=totalDogs;
+  sToday.textContent=today;
+  sYesterday.textContent=yesterday;
+
+  Object.entries(tally)
+    .sort((a,b)=>b[1]-a[1])
+    .forEach(([b,c],i)=>{
+      leagueEl.innerHTML+=`
+        <tr>
+          <td><span class="badge">${i+1}</span></td>
+          <td>${b}</td>
+          <td>${c}</td>
+        </tr>`;
+    });
 }
 
 load();
