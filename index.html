@@ -257,12 +257,27 @@ small{display:block;margin-top:8px;color:var(--muted);min-height:18px}
 
 <h2>Recent history</h2>
 <div class="table-wrap">
-<table>
-<thead>
-<tr><th>Time</th><th>Breed</th><th>#</th><th>Location</th><th>Notes</th><th>Photo</th></tr>
-</thead>
-<tbody id="rows"></tbody>
-</table>
+  <table>
+    <colgroup>
+      <col style="width:160px">
+      <col style="width:180px">
+      <col style="width:60px">
+      <col style="width:200px">
+      <col>
+      <col style="width:70px">
+    </colgroup>
+    <thead>
+      <tr>
+        <th>Time</th>
+        <th>Breed</th>
+        <th>#</th>
+        <th>Location</th>
+        <th>Notes</th>
+        <th>Photo</th>
+      </tr>
+    </thead>
+    <tbody id="rows"></tbody>
+  </table>
 </div>
 
 </div>
