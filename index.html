@@ -13,169 +13,90 @@
   --ink:#f4efe6;--muted:#a7b0b8;--accent:#f5a524;--stroke:#2a3640;
 }
 *{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:"Space Grotesk",sans-serif;
-  color:var(--ink);
-  background:var(--bg);
-}
-header{
-  padding:18px;
-  text-align:center;
-  border-bottom:1px solid var(--stroke)
-}
-header h1{
-  margin:0;
-  font-family:"Fraunces",serif
-}
-header p{
-  margin:6px 0 12px;
-  color:var(--muted);
-  font-size:14px
-}
-.nav{
-  display:flex;
-  justify-content:center;
-  gap:12px
-}
-.nav a{
-  padding:8px 14px;
-  border-radius:20px;
-  border:1px solid var(--stroke);
-  color:var(--ink);
-  text-decoration:none;
-  font-size:13px
-}
-.container{
-  max-width:900px;
-  margin:0 auto;
-  padding:18px
-}
-.card{
-  background:linear-gradient(180deg,var(--panel),var(--panel-2));
-  border:1px solid var(--stroke);
-  border-radius:16px;
-  padding:18px
-}
-label{
-  display:block;
-  margin-top:14px;
-  font-size:12px;
-  text-transform:uppercase;
-  letter-spacing:.08em;
-  color:var(--muted)
-}
-input,textarea{
-  width:100%;
-  margin-top:6px;
-  padding:12px;
-  border-radius:12px;
-  border:1px solid var(--stroke);
-  background:#0f151a;
-  color:var(--ink)
-}
-.count-grid{
+body{margin:0;font-family:"Space Grotesk",sans-serif;color:var(--ink);background:var(--bg)}
+
+header{padding:18px;text-align:center;border-bottom:1px solid var(--stroke)}
+header h1{margin:0;font-family:"Fraunces",serif}
+header p{margin:6px 0;color:var(--muted);font-size:14px}
+.nav{display:flex;justify-content:center;gap:12px;margin-top:10px}
+.nav a{padding:8px 14px;border-radius:20px;border:1px solid var(--stroke);color:var(--ink);text-decoration:none;font-size:13px}
+
+.container{max-width:900px;margin:0 auto;padding:18px}
+.card{background:linear-gradient(180deg,var(--panel),var(--panel-2));border:1px solid var(--stroke);border-radius:16px;padding:18px}
+
+.stats{
   display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:8px;
-  margin-top:6px
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin-bottom:16px
 }
-.count-btn{
-  padding:12px;
-  border-radius:10px;
-  border:1px solid var(--stroke);
+.stat{
   background:#101820;
-  color:var(--ink);
-  font-weight:600;
-  cursor:pointer
-}
-.count-btn.active{outline:2px solid var(--accent)}
-.geo-row{display:flex;gap:8px}
-.geo-btn{
-  padding:12px;
-  border-radius:12px;
   border:1px solid var(--stroke);
-  background:#101820;
-  color:var(--ink);
-  cursor:pointer;
-  font-weight:600;
-  line-height:1.1
-}
-.geo-btn span{
-  display:block;
-  font-size:18px
-}
-button.primary{
-  width:100%;
-  margin-top:18px;
-  padding:14px;
   border-radius:12px;
-  border:none;
-  font-weight:800;
-  background:linear-gradient(120deg,var(--accent),#ffcf5a);
-  color:#241600;
-  cursor:pointer
-}
-hr{
-  border:0;
-  border-top:1px solid var(--stroke);
-  margin:22px 0
-}
-.table-wrap{
-  overflow-x:auto
-}
-table{
-  width:100%;
-  min-width:800px;
-  border-collapse:collapse;
-  table-layout:fixed;
-}
-th, td{
-  padding:10px;
-  border-bottom:1px solid var(--stroke);
-  font-size:14px;
-  line-height:1.3;
-  vertical-align:middle;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
-}
-th{
-  font-size:11px;
-  color:var(--muted);
-  text-transform:uppercase
-}
-td:last-child, th:last-child{text-align:center}
-.photo-cell{
-  width:80px;
-  min-width:80px;
+  padding:12px;
   text-align:center
 }
-img.thumb{
-  width:44px;
-  height:44px;
-  border-radius:8px;
-  object-fit:cover;
-  display:block;
-  margin:0 auto;
-  cursor:pointer
+.stat strong{display:block;font-size:20px}
+
+label{display:block;margin-top:14px;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+input,textarea{width:100%;margin-top:6px;padding:12px;border-radius:12px;border:1px solid var(--stroke);background:#0f151a;color:var(--ink)}
+
+.count-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:6px}
+.count-btn{padding:12px;border-radius:10px;border:1px solid var(--stroke);background:#101820;color:var(--ink);font-weight:600;cursor:pointer}
+.count-btn.active{outline:2px solid var(--accent)}
+
+.geo-row{display:flex;gap:8px}
+.geo-btn{padding:12px;border-radius:12px;border:1px solid var(--stroke);background:#101820;color:var(--ink);cursor:pointer}
+.geo-btn span{font-size:18px}
+
+button.primary{
+  width:100%;margin-top:18px;padding:14px;border-radius:12px;border:none;
+  font-weight:800;background:linear-gradient(120deg,var(--accent),#ffcf5a);
+  color:#241600;cursor:pointer
 }
-tbody tr:hover{
-  background:rgba(255,255,255,0.03);
+
+hr{border:0;border-top:1px solid var(--stroke);margin:22px 0}
+
+.table-wrap{overflow-x:auto;border-left:1px solid var(--stroke);border-right:1px solid var(--stroke)}
+table{width:100%;min-width:720px;border-collapse:collapse;table-layout:fixed}
+thead th{position:sticky;top:0;background:#141b21;z-index:2}
+
+th,td{
+  padding:10px;border-bottom:1px solid var(--stroke);
+  font-size:14px;vertical-align:middle;white-space:normal
 }
-small{
-  display:block;
-  margin-top:6px;
-  color:var(--muted);
-  min-height:18px
+th{font-size:11px;color:var(--muted);text-transform:uppercase}
+
+/* column alignment */
+th:nth-child(1),td:nth-child(1){text-align:left}
+th:nth-child(2),td:nth-child(2){text-align:left}
+th:nth-child(3),td:nth-child(3){text-align:center}
+th:nth-child(4),td:nth-child(4){text-align:left}
+th:nth-child(5),td:nth-child(5){text-align:left}
+th:nth-child(6),td:nth-child(6){text-align:center}
+
+.photo-cell{width:80px}
+img.thumb{width:44px;height:44px;border-radius:8px;object-fit:cover;cursor:pointer}
+
+.note{max-height:2.6em;overflow:hidden;cursor:pointer}
+.note.open{max-height:none}
+
+tbody tr:hover{background:rgba(255,255,255,0.03)}
+
+small{display:block;margin-top:6px;color:var(--muted)}
+
+@media(max-width:700px){
+  table{min-width:700px}
+  .stats{grid-template-columns:repeat(2,1fr)}
 }
-@media (max-width:700px){
-  .table-wrap{
-    -webkit-overflow-scrolling:touch;
-    border-left:1px solid var(--stroke);
-    border-right:1px solid var(--stroke);
-  }
+
+/* modal */
+.modal{
+  position:fixed;inset:0;background:rgba(0,0,0,.8);
+  display:none;align-items:center;justify-content:center;z-index:99
 }
+.modal img{max-width:90vw;max-height:90vh;border-radius:12px}
 </style>
 </head>
 
@@ -194,31 +115,38 @@ small{
 <div class="container">
 <div class="card">
 
+<div class="stats">
+  <div class="stat"><strong id="sToday">0</strong>Today</div>
+  <div class="stat"><strong id="sYest">0</strong>Yesterday</div>
+  <div class="stat"><strong id="sDogs">0</strong>Dogs</div>
+  <div class="stat"><strong id="sLogs">0</strong>Logs</div>
+</div>
+
 <label>Breed</label>
-<input id="breed" list="breedList" placeholder="Start typing breed…">
+<input id="breed" list="breedList">
 <datalist id="breedList">
   <option>Labrador Retriever</option>
   <option>Golden Retriever</option>
   <option>German Shepherd</option>
-  <option>Border Collie</option>
   <option>French Bulldog</option>
+  <option>Border Collie</option>
   <option>Mixed / Cross</option>
 </datalist>
 
 <label>Count</label>
 <div class="count-grid" id="countGrid">
-  <button type="button" class="count-btn active" data-count="1">1</button>
-  <button type="button" class="count-btn" data-count="2">2</button>
-  <button type="button" class="count-btn" data-count="3">3</button>
-  <button type="button" class="count-btn" data-count="4">4</button>
-  <button type="button" class="count-btn" data-count="10">More</button>
+  <button class="count-btn active" data-count="1">1</button>
+  <button class="count-btn" data-count="2">2</button>
+  <button class="count-btn" data-count="3">3</button>
+  <button class="count-btn" data-count="4">4</button>
+  <button class="count-btn" data-count="10">More</button>
 </div>
 <input id="count" type="hidden" value="1">
 
 <label>Location</label>
 <div class="geo-row">
-  <input id="location" placeholder="Where?">
-  <button type="button" class="geo-btn" id="geoBtn"><span>📍</span></button>
+  <input id="location">
+  <button class="geo-btn" id="geoBtn"><span>📍</span></button>
 </div>
 
 <label>Notes</label>
@@ -228,7 +156,7 @@ small{
 <input id="photo" type="file" accept="image/*">
 <small id="photoName"></small>
 
-<button type="button" class="primary" id="submitBtn">Submit</button>
+<button class="primary" id="submitBtn">Submit</button>
 <small id="status"></small>
 
 <hr>
@@ -237,146 +165,110 @@ small{
 
 <div class="table-wrap">
 <table>
-  <colgroup>
-    <col style="width:150px">
-    <col style="width:180px">
-    <col style="width:50px">
-    <col style="width:220px">
-    <col>
-    <col style="width:80px">
-  </colgroup>
-  <thead>
-    <tr>
-      <th>Time</th>
-      <th>Breed</th>
-      <th>#</th>
-      <th>Location</th>
-      <th>Notes</th>
-      <th>Photo</th>
-    </tr>
-  </thead>
-  <tbody id="rows"></tbody>
+<colgroup>
+  <col style="width:150px">
+  <col style="width:180px">
+  <col style="width:50px">
+  <col style="width:220px">
+  <col>
+  <col style="width:80px">
+</colgroup>
+<thead>
+<tr>
+  <th>Time</th><th>Breed</th><th>#</th><th>Location</th><th>Notes</th><th>Photo</th>
+</tr>
+</thead>
+<tbody id="rows"></tbody>
 </table>
 </div>
 
 </div>
 </div>
 
+<div class="modal" id="modal" onclick="this.style.display='none'">
+  <img id="modalImg">
+</div>
+
 <script>
 const API="https://fn-logdog2-cddwend9gva2gxa8.westeurope-01.azurewebsites.net/api";
 const LAST_LOC="logdog_last_location";
 
-const breedInput=document.getElementById("breed");
-const countInput=document.getElementById("count");
-const locationInput=document.getElementById("location");
-const notesInput=document.getElementById("notes");
-const photoInput=document.getElementById("photo");
-const statusEl=document.getElementById("status");
 const rowsEl=document.getElementById("rows");
+const modal=document.getElementById("modal");
+const modalImg=document.getElementById("modalImg");
 
-photoInput.addEventListener("change",e=>{
-  document.getElementById("photoName").textContent =
-    e.target.files.length ? e.target.files[0].name : "";
+photo.addEventListener("change",e=>{
+  photoName.textContent=e.target.files[0]?.name||"";
 });
 
-window.addEventListener("load",()=>{
-  breedInput.value="";
-  notesInput.value="";
-  photoInput.value="";
-  document.getElementById("photoName").textContent="";
-  countInput.value="1";
-  document.querySelectorAll(".count-btn").forEach(b=>b.classList.remove("active"));
-  document.querySelector(".count-btn[data-count='1']").classList.add("active");
-  if(localStorage.getItem(LAST_LOC)){
-    locationInput.value=localStorage.getItem(LAST_LOC);
-  }
-});
+geoBtn.onclick=()=>{
+  navigator.geolocation?.getCurrentPosition(p=>{
+    const loc=`${p.coords.latitude.toFixed(5)}, ${p.coords.longitude.toFixed(5)}`;
+    location.value=loc;
+    localStorage.setItem(LAST_LOC,loc);
+  });
+};
 
-document.getElementById("countGrid").onclick=e=>{
+countGrid.onclick=e=>{
   const b=e.target.closest(".count-btn");
   if(!b)return;
   document.querySelectorAll(".count-btn").forEach(x=>x.classList.remove("active"));
   b.classList.add("active");
-  countInput.value=b.dataset.count;
+  count.value=b.dataset.count;
 };
 
-document.getElementById("geoBtn").onclick=()=>{
-  if(!navigator.geolocation)return;
-  navigator.geolocation.getCurrentPosition(p=>{
-    const loc=`${p.coords.latitude.toFixed(5)}, ${p.coords.longitude.toFixed(5)}`;
-    locationInput.value=loc;
-    localStorage.setItem(LAST_LOC,loc);
-    statusEl.textContent="Location added";
-  });
-};
-
-document.getElementById("submitBtn").onclick=submitLog;
+submitBtn.onclick=submitLog;
 
 function fmt(ts){
-  return new Date(ts).toLocaleString(undefined,{
-    weekday:"short",day:"2-digit",month:"short",
-    hour:"2-digit",minute:"2-digit"
-  });
+  return new Date(ts).toLocaleString(undefined,{weekday:"short",day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"});
 }
 
 async function submitLog(){
-  try{
-    statusEl.textContent="Saving…";
-    let photoUrl="";
-    if(photoInput.files.length){
-      const fd=new FormData();
-      fd.append("file",photoInput.files[0]);
-      const up=await fetch(API+"/upload",{method:"POST",body:fd});
-      if(!up.ok)throw new Error();
-      photoUrl=await up.text();
-    }
-    const res=await fetch(API+"/submit",{
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({
-        breed:breedInput.value.trim(),
-        count:Number(countInput.value||1),
-        location:locationInput.value.trim(),
-        notes:notesInput.value.trim(),
-        photoUrl
-      })
-    });
-    if(!res.ok)throw new Error();
-    statusEl.textContent="Saved";
-    notesInput.value="";
-    photoInput.value="";
-    document.getElementById("photoName").textContent="";
-    loadLogs();
-  }catch{
-    statusEl.textContent="Error saving";
+  status.textContent="Saving…";
+  let photoUrl="";
+  if(photo.files.length){
+    const fd=new FormData();fd.append("file",photo.files[0]);
+    photoUrl=await fetch(API+"/upload",{method:"POST",body:fd}).then(r=>r.text());
   }
+  await fetch(API+"/submit",{method:"POST",headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({breed:breed.value,count:+count.value,location:location.value,notes:notes.value,photoUrl})
+  });
+  notes.value="";photo.value="";photoName.textContent="";
+  load();
 }
 
-async function loadLogs(){
-  const r=await fetch(API+"/logs");
-  if(!r.ok)return;
-  const data=await r.json();
+async function load(){
+  if(localStorage.getItem(LAST_LOC))location.value=localStorage.getItem(LAST_LOC);
+  const data=await fetch(API+"/logs").then(r=>r.json());
   rowsEl.innerHTML="";
+  let dogs=0,today=0,yest=0;
+  const d0=new Date();d0.setHours(0,0,0,0);
+  const d1=new Date(d0);d1.setDate(d1.getDate()-1);
+
   data.forEach(x=>{
+    const t=new Date(x.ts);
+    dogs+=+x.count||1;
+    if(t>=d0)today+=+x.count||1;
+    if(t>=d1&&t<d0)yest+=+x.count||1;
+
     rowsEl.innerHTML+=`
-      <tr>
-        <td>${fmt(x.ts)}</td>
-        <td>${x.breed||""}</td>
-        <td>${x.count||""}</td>
-        <td>${x.location||""}</td>
-        <td>${x.notes||""}</td>
-        <td class="photo-cell">
-          ${x.photoUrl
-            ? `<a href="${x.photoUrl}" target="_blank">
-                 <img class="thumb" src="${x.photoUrl}">
-               </a>`
-            : ""
-          }
-        </td>
-      </tr>`;
+    <tr>
+      <td>${fmt(x.ts)}</td>
+      <td>${x.breed||""}</td>
+      <td>${x.count||""}</td>
+      <td>${x.location||""}</td>
+      <td class="note" onclick="this.classList.toggle('open')">${x.notes||""}</td>
+      <td class="photo-cell">${x.photoUrl?`<img class="thumb" src="${x.photoUrl}" onclick="openImg('${x.photoUrl}')">`:""}</td>
+    </tr>`;
   });
+
+  sToday.textContent=today;
+  sYest.textContent=yest;
+  sDogs.textContent=dogs;
+  sLogs.textContent=data.length;
 }
-loadLogs();
+function openImg(src){modalImg.src=src;modal.style.display="flex"}
+load();
 </script>
 
 </body>
