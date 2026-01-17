@@ -13,84 +13,35 @@
   --ink:#f4efe6;--muted:#a7b0b8;--accent:#f5a524;--stroke:#2a3640;
 }
 *{box-sizing:border-box}
-body{
-  margin:0;font-family:"Space Grotesk",sans-serif;color:var(--ink);
-  background:var(--bg);
+body{margin:0;font-family:"Space Grotesk",sans-serif;color:var(--ink);background:var(--bg)}
+header{text-align:center;padding:18px;border-bottom:1px solid var(--stroke)}
+header h1{margin:0;font-family:"Fraunces",serif}
+.nav{margin-top:10px;display:flex;justify-content:center;gap:12px}
+.nav a{
+  padding:8px 14px;border-radius:20px;border:1px solid var(--stroke);
+  color:var(--ink);text-decoration:none;font-size:13px
 }
-header{
-  padding:18px;
-  border-bottom:1px solid var(--stroke);
-}
-header h1{
-  margin:0;
-  font-family:"Fraunces",serif;
-}
-header a{
-  color:var(--muted);
-  font-size:13px;
-  text-decoration:none;
-}
-.container{
-  max-width:1100px;   /* 👈 wider on desktop */
-  margin:0 auto;
-  padding:18px;
-}
+.container{max-width:1100px;margin:0 auto;padding:18px}
 .card{
   background:linear-gradient(180deg,var(--panel),var(--panel-2));
-  border:1px solid var(--stroke);
-  border-radius:16px;
-  padding:18px;
-  box-shadow:0 12px 40px rgba(0,0,0,.35);
+  border:1px solid var(--stroke);border-radius:16px;padding:18px
 }
 .stats{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-  gap:12px;
-  margin-bottom:18px;
+  gap:12px;margin-bottom:18px
 }
 .stat{
-  background:#0f151a;
-  border:1px solid var(--stroke);
-  border-radius:12px;
-  padding:14px;
-  text-align:center;
+  background:#0f151a;border:1px solid var(--stroke);
+  border-radius:12px;padding:14px;text-align:center
 }
-.stat strong{
-  font-size:28px;
-  display:block;
-}
-.stat span{
-  font-size:12px;
-  color:var(--muted);
-}
-.table-wrap{
-  overflow-x:auto;
-}
-table{
-  width:100%;
-  min-width:900px;
-  border-collapse:collapse;
-}
-th,td{
-  padding:10px;
-  border-bottom:1px solid var(--stroke);
-  font-size:14px;
-  white-space:nowrap;
-}
-th{
-  font-size:11px;
-  color:var(--muted);
-  text-transform:uppercase;
-}
-img.thumb{
-  width:44px;
-  height:44px;
-  object-fit:cover;
-  border-radius:8px;
-}
-@media(max-width:700px){
-  .container{max-width:560px;}
-}
+.stat strong{font-size:28px;display:block}
+.stat span{font-size:12px;color:var(--muted)}
+.table-wrap{overflow-x:auto}
+table{width:100%;min-width:900px;border-collapse:collapse}
+th,td{padding:10px;border-bottom:1px solid var(--stroke);white-space:nowrap}
+th{font-size:11px;color:var(--muted);text-transform:uppercase}
+img.thumb{width:44px;height:44px;border-radius:8px;object-fit:cover}
 </style>
 </head>
 
@@ -98,7 +49,10 @@ img.thumb{
 
 <header>
   <h1>LogDog Stats</h1>
-  <a href="index.html">← Back to log</a>
+  <div class="nav">
+    <a href="index.html">Home</a>
+    <a href="logs.html">View stats</a>
+  </div>
 </header>
 
 <div class="container">
@@ -107,20 +61,14 @@ img.thumb{
 <div class="stats">
   <div class="stat"><strong id="sLogs">0</strong><span>Logs today</span></div>
   <div class="stat"><strong id="sDogs">0</strong><span>Dogs today</span></div>
+  <div class="stat"><strong id="sYest">0</strong><span>Dogs yesterday</span></div>
   <div class="stat"><strong id="sWeek">0</strong><span>Dogs last 7 days</span></div>
 </div>
 
 <div class="table-wrap">
 <table>
 <thead>
-<tr>
-  <th>Time</th>
-  <th>Breed</th>
-  <th>#</th>
-  <th>Location</th>
-  <th>Notes</th>
-  <th>Photo</th>
-</tr>
+<tr><th>Time</th><th>Breed</th><th>#</th><th>Location</th><th>Notes</th><th>Photo</th></tr>
 </thead>
 <tbody id="rows"></tbody>
 </table>
@@ -135,45 +83,37 @@ const rowsEl=document.getElementById("rows");
 
 const sLogs=document.getElementById("sLogs");
 const sDogs=document.getElementById("sDogs");
+const sYest=document.getElementById("sYest");
 const sWeek=document.getElementById("sWeek");
 
 function fmt(ts){
-  const d=new Date(ts);
-  return d.toLocaleString(undefined,{
-    weekday:"short",
-    day:"2-digit",
-    month:"short",
-    hour:"2-digit",
-    minute:"2-digit"
+  return new Date(ts).toLocaleString(undefined,{
+    weekday:"short",day:"2-digit",month:"short",
+    hour:"2-digit",minute:"2-digit"
   });
-}
-
-function calcStats(rows){
-  const today=new Date().toISOString().slice(0,10);
-  const weekAgo=Date.now()-7*86400000;
-
-  let logsToday=0,dogsToday=0,dogsWeek=0;
-
-  rows.forEach(r=>{
-    const t=new Date(r.ts).getTime();
-    if(r.ts.startsWith(today)){
-      logsToday++;
-      dogsToday+=Number(r.count)||0;
-    }
-    if(t>=weekAgo){
-      dogsWeek+=Number(r.count)||0;
-    }
-  });
-
-  sLogs.textContent=logsToday;
-  sDogs.textContent=dogsToday;
-  sWeek.textContent=dogsWeek;
 }
 
 async function load(){
   const data=await fetch(API+"/logs").then(r=>r.json());
 
-  calcStats(data);
+  const today=new Date().toISOString().slice(0,10);
+  const yesterday=new Date(Date.now()-86400000).toISOString().slice(0,10);
+  const weekAgo=Date.now()-7*86400000;
+
+  let logsToday=0,dogsToday=0,dogsY=0,dogsW=0;
+
+  data.forEach(r=>{
+    const c=Number(r.count)||0;
+    const t=r.ts||"";
+    if(t.startsWith(today)){logsToday++;dogsToday+=c;}
+    if(t.startsWith(yesterday)){dogsY+=c;}
+    if(new Date(t).getTime()>=weekAgo){dogsW+=c;}
+  });
+
+  sLogs.textContent=logsToday;
+  sDogs.textContent=dogsToday;
+  sYest.textContent=dogsY;
+  sWeek.textContent=dogsW;
 
   rowsEl.innerHTML="";
   data.forEach(r=>{
@@ -184,7 +124,7 @@ async function load(){
         <td>${r.count||""}</td>
         <td>${r.location||""}</td>
         <td>${r.notes||""}</td>
-        <td>${r.photoUrl?`<a href="${r.photoUrl}" target="_blank"><img class="thumb" src="${r.photoUrl}"></a>`:""}</td>
+        <td>${r.photoUrl?`<img class="thumb" src="${r.photoUrl}">`:""}</td>
       </tr>`;
   });
 }
