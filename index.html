@@ -3,110 +3,213 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Log a Dog</title>
+<title>LogDog</title>
+
 <style>
-body{margin:0;font-family:system-ui;background:#121212;color:#eaeaea}
-header{padding:14px;text-align:center;font-weight:600;background:#000}
-.container{max-width:480px;margin:0 auto;padding:16px}
-label{display:block;margin-top:14px;font-size:14px}
-input,textarea,button{width:100%;padding:14px;margin-top:6px;border-radius:12px;border:none;font-size:16px;background:#1e1e1e;color:#eaeaea}
-button{margin-top:20px;background:#4da3ff;color:#000;font-weight:600}
-hr{border:0;border-top:1px solid #333;margin:24px 0}
-table{width:100%;border-collapse:collapse}
-th,td{padding:10px;border-bottom:1px solid #333;text-align:left;font-size:14px}
-img.thumb{width:48px;height:48px;object-fit:cover;border-radius:6px}
-small{color:#aaa}
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
+  background:#121212;
+  color:#eaeaea
+}
+header{
+  padding:14px;
+  text-align:center;
+  font-weight:600;
+  background:#000
+}
+.container{
+  max-width:480px;
+  margin:0 auto;
+  padding:16px
+}
+label{
+  display:block;
+  margin-top:14px;
+  font-size:14px
+}
+input,textarea,button{
+  width:100%;
+  padding:14px;
+  margin-top:6px;
+  border-radius:12px;
+  border:none;
+  font-size:16px;
+  background:#1e1e1e;
+  color:#eaeaea
+}
+button{
+  margin-top:20px;
+  background:#4da3ff;
+  color:#000;
+  font-weight:600;
+  cursor:pointer
+}
+.count-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin-top:8px
+}
+.count-btn{
+  padding:14px;
+  border-radius:12px;
+  border:none;
+  background:#2a2a2a;
+  color:#eaeaea;
+  font-size:18px;
+  font-weight:600
+}
+.count-btn.active{
+  outline:2px solid #4da3ff
+}
+.count-btn.more{
+  grid-column:span 4;
+  background:#4da3ff;
+  color:#000
+}
+hr{
+  border:0;
+  border-top:1px solid #333;
+  margin:24px 0
+}
+table{
+  width:100%;
+  border-collapse:collapse
+}
+th,td{
+  padding:10px;
+  border-bottom:1px solid #333;
+  text-align:left;
+  font-size:14px
+}
+img.thumb{
+  width:48px;
+  height:48px;
+  object-fit:cover;
+  border-radius:6px
+}
+small{
+  color:#aaa
+}
 </style>
 </head>
+
 <body>
 
 <header>LogDog</header>
 
 <div class="container">
-  <h2>New log</h2>
 
-  <label>Breed
-    <input id="breed">
-  </label>
+<h2>New log</h2>
 
-  <label>Count
-    <input id="count" type="number" value="1" min="1">
-  </label>
+<label>
+  Breed
+  <input id="breed" placeholder="Dog breed">
+</label>
 
-  <label>Location
-    <input id="location">
-  </label>
+<label>Count</label>
+<div class="count-grid">
+  <button class="count-btn active" onclick="setCount(1)">1</button>
+  <button class="count-btn" onclick="setCount(2)">2</button>
+  <button class="count-btn" onclick="setCount(3)">3</button>
+  <button class="count-btn" onclick="setCount(4)">4</button>
+  <button class="count-btn more" onclick="setCount(10)">More</button>
+</div>
 
-  <label>Notes
-    <textarea id="notes" rows="2"></textarea>
-  </label>
+<input id="count" type="hidden" value="1">
 
-  <label>Photo
-    <input id="photo" type="file" accept="image/*" capture="environment">
-  </label>
+<label>
+  Location
+  <input id="location" placeholder="Where?">
+</label>
 
-  <button onclick="submitLog()">Submit</button>
-  <small id="status"></small>
+<label>
+  Notes
+  <textarea id="notes" rows="2"></textarea>
+</label>
 
-  <hr>
+<label>
+  Photo
+  <input id="photo" type="file" accept="image/*" capture="environment">
+</label>
 
-  <h2>History</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Time</th>
-        <th>Breed</th>
-        <th>#</th>
-        <th>Photo</th>
-      </tr>
-    </thead>
-    <tbody id="rows"></tbody>
-  </table>
+<button onclick="submitLog()">Submit</button>
+<small id="status"></small>
+
+<hr>
+
+<h2>History</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Time</th>
+      <th>Breed</th>
+      <th>#</th>
+      <th>Photo</th>
+    </tr>
+  </thead>
+  <tbody id="rows"></tbody>
+</table>
+
 </div>
 
 <script>
-const API="/api";
+const API = "/api";
+
+function setCount(n){
+  count.value = n;
+  document.querySelectorAll(".count-btn")
+    .forEach(b => b.classList.remove("active"));
+  event.target.classList.add("active");
+}
 
 async function submitLog(){
-  status.textContent="Saving…";
-  let photoUrl=null;
+  status.textContent = "Saving…";
+  let photoUrl = null;
 
   if(photo.files.length){
-    const fd=new FormData();
-    fd.append("file",photo.files[0]);
-    photoUrl=await fetch(API+"/upload",{method:"POST",body:fd}).then(r=>r.text());
+    const fd = new FormData();
+    fd.append("file", photo.files[0]);
+    photoUrl = await fetch(API + "/upload", {
+      method: "POST",
+      body: fd
+    }).then(r => r.text());
   }
 
-  await fetch(API+"/submit",{
-    method:"POST",
-    headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({
-      breed:breed.value,
-      count:Number(count.value),
-      location:location.value,
-      notes:notes.value,
+  await fetch(API + "/submit", {
+    method: "POST",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify({
+      breed: breed.value,
+      count: Number(count.value),
+      location: location.value,
+      notes: notes.value,
       photoUrl
     })
   });
 
-  status.textContent="Saved";
-  load();
+  status.textContent = "Saved";
+  loadLogs();
 }
 
-async function load(){
-  const data=await fetch(API+"/logs").then(r=>r.json());
-  rows.innerHTML="";
-  data.forEach(r=>{
-    rows.innerHTML+=`
+async function loadLogs(){
+  const data = await fetch(API + "/logs").then(r => r.json());
+  rows.innerHTML = "";
+  data.forEach(r => {
+    rows.innerHTML += `
       <tr>
-        <td>${r.ts||""}</td>
-        <td>${r.breed||""}</td>
-        <td>${r.count||""}</td>
-        <td>${r.photoUrl?'<img class="thumb" src="'+r.photoUrl+'">':''}</td>
-      </tr>`;
+        <td>${r.ts || ""}</td>
+        <td>${r.breed || ""}</td>
+        <td>${r.count || ""}</td>
+        <td>${r.photoUrl ? `<img class="thumb" src="${r.photoUrl}">` : ""}</td>
+      </tr>
+    `;
   });
 }
-load();
+
+loadLogs();
 </script>
 
 </body>
