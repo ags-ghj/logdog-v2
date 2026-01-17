@@ -197,11 +197,13 @@ const rowsEl=document.getElementById("rows");
 const modal=document.getElementById("modal");
 const modalImg=document.getElementById("modalImg");
 
+const locationInput = document.getElementById("location");
+
 photo.addEventListener("change",e=>{
   photoName.textContent=e.target.files[0]?.name||"";
 });
 
-geoBtn.addEventListener("click", () => {
+geoBtn.onclick = () => {
   if (!navigator.geolocation) {
     status.textContent = "Location not supported";
     return;
@@ -212,22 +214,16 @@ geoBtn.addEventListener("click", () => {
   navigator.geolocation.getCurrentPosition(
     p => {
       const loc = `${p.coords.latitude.toFixed(5)}, ${p.coords.longitude.toFixed(5)}`;
-      location.value = loc;
+      locationInput.value = loc;          // ✅ guaranteed
       localStorage.setItem(LAST_LOC, loc);
       status.textContent = "Location added";
     },
     err => {
-      status.textContent =
-        err.code === 1 ? "Location permission denied — tap again to retry"
-                      : "Location unavailable — try again";
+      status.textContent = "Location denied — tap again to retry";
     },
-    {
-      enableHighAccuracy: true,
-      timeout: 10000,
-      maximumAge: 60000
-    }
+    { enableHighAccuracy: true, timeout: 10000 }
   );
-});
+};
 
 countGrid.onclick=e=>{
   const b=e.target.closest(".count-btn");
