@@ -1,1 +1,195 @@
-<!DOCTYPE html><html><body><h1>Logs</h1></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LogDog — Stats</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;800&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#0f1418;--panel:#141b21;--panel-2:#1b242c;
+  --ink:#f4efe6;--muted:#a7b0b8;--accent:#f5a524;--stroke:#2a3640;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;font-family:"Space Grotesk",sans-serif;color:var(--ink);
+  background:var(--bg);
+}
+header{
+  padding:18px;
+  border-bottom:1px solid var(--stroke);
+}
+header h1{
+  margin:0;
+  font-family:"Fraunces",serif;
+}
+header a{
+  color:var(--muted);
+  font-size:13px;
+  text-decoration:none;
+}
+.container{
+  max-width:1100px;   /* 👈 wider on desktop */
+  margin:0 auto;
+  padding:18px;
+}
+.card{
+  background:linear-gradient(180deg,var(--panel),var(--panel-2));
+  border:1px solid var(--stroke);
+  border-radius:16px;
+  padding:18px;
+  box-shadow:0 12px 40px rgba(0,0,0,.35);
+}
+.stats{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:12px;
+  margin-bottom:18px;
+}
+.stat{
+  background:#0f151a;
+  border:1px solid var(--stroke);
+  border-radius:12px;
+  padding:14px;
+  text-align:center;
+}
+.stat strong{
+  font-size:28px;
+  display:block;
+}
+.stat span{
+  font-size:12px;
+  color:var(--muted);
+}
+.table-wrap{
+  overflow-x:auto;
+}
+table{
+  width:100%;
+  min-width:900px;
+  border-collapse:collapse;
+}
+th,td{
+  padding:10px;
+  border-bottom:1px solid var(--stroke);
+  font-size:14px;
+  white-space:nowrap;
+}
+th{
+  font-size:11px;
+  color:var(--muted);
+  text-transform:uppercase;
+}
+img.thumb{
+  width:44px;
+  height:44px;
+  object-fit:cover;
+  border-radius:8px;
+}
+@media(max-width:700px){
+  .container{max-width:560px;}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>LogDog Stats</h1>
+  <a href="index.html">← Back to log</a>
+</header>
+
+<div class="container">
+<div class="card">
+
+<div class="stats">
+  <div class="stat"><strong id="sLogs">0</strong><span>Logs today</span></div>
+  <div class="stat"><strong id="sDogs">0</strong><span>Dogs today</span></div>
+  <div class="stat"><strong id="sWeek">0</strong><span>Dogs last 7 days</span></div>
+</div>
+
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+  <th>Time</th>
+  <th>Breed</th>
+  <th>#</th>
+  <th>Location</th>
+  <th>Notes</th>
+  <th>Photo</th>
+</tr>
+</thead>
+<tbody id="rows"></tbody>
+</table>
+</div>
+
+</div>
+</div>
+
+<script>
+const API="https://fn-logdog2-cddwend9gva2gxa8.westeurope-01.azurewebsites.net/api";
+const rowsEl=document.getElementById("rows");
+
+const sLogs=document.getElementById("sLogs");
+const sDogs=document.getElementById("sDogs");
+const sWeek=document.getElementById("sWeek");
+
+function fmt(ts){
+  const d=new Date(ts);
+  return d.toLocaleString(undefined,{
+    weekday:"short",
+    day:"2-digit",
+    month:"short",
+    hour:"2-digit",
+    minute:"2-digit"
+  });
+}
+
+function calcStats(rows){
+  const today=new Date().toISOString().slice(0,10);
+  const weekAgo=Date.now()-7*86400000;
+
+  let logsToday=0,dogsToday=0,dogsWeek=0;
+
+  rows.forEach(r=>{
+    const t=new Date(r.ts).getTime();
+    if(r.ts.startsWith(today)){
+      logsToday++;
+      dogsToday+=Number(r.count)||0;
+    }
+    if(t>=weekAgo){
+      dogsWeek+=Number(r.count)||0;
+    }
+  });
+
+  sLogs.textContent=logsToday;
+  sDogs.textContent=dogsToday;
+  sWeek.textContent=dogsWeek;
+}
+
+async function load(){
+  const data=await fetch(API+"/logs").then(r=>r.json());
+
+  calcStats(data);
+
+  rowsEl.innerHTML="";
+  data.forEach(r=>{
+    rowsEl.innerHTML+=`
+      <tr>
+        <td>${fmt(r.ts)}</td>
+        <td>${r.breed||""}</td>
+        <td>${r.count||""}</td>
+        <td>${r.location||""}</td>
+        <td>${r.notes||""}</td>
+        <td>${r.photoUrl?`<a href="${r.photoUrl}" target="_blank"><img class="thumb" src="${r.photoUrl}"></a>`:""}</td>
+      </tr>`;
+  });
+}
+load();
+</script>
+
+</body>
+</html>
