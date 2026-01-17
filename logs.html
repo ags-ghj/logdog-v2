@@ -34,7 +34,16 @@ th,td{padding:10px;border-bottom:1px solid var(--stroke);white-space:nowrap}
 th{font-size:11px;color:var(--muted);text-transform:uppercase}
 img.thumb{width:44px;height:44px;border-radius:8px;object-fit:cover;cursor:pointer}
 #map{height:360px;border-radius:14px;border:1px solid var(--stroke)}
-.badge{padding:4px 8px;border-radius:12px;background:#101820;border:1px solid var(--stroke)}
+.badge{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:28px;
+  height:28px;
+  border-radius:50%;
+  background:#101820;
+  border:1px solid var(--stroke);
+}
 </style>
 </head>
 
@@ -55,10 +64,19 @@ img.thumb{width:44px;height:44px;border-radius:8px;object-fit:cover;cursor:point
   <h2>Breed league</h2>
   <div class="table-wrap">
     <table>
-      <thead>
-        <tr><th>#</th><th>Breed</th><th>Dogs seen</th></tr>
-      </thead>
-      <tbody id="league"></tbody>
+    <colgroup>
+        <col style="width:48px">
+        <col>
+        <col style="width:120px">
+    </colgroup>
+    <thead>
+        <tr>
+        <th>#</th>
+        <th>Breed</th>
+        <th>Dogs seen</th>
+        </tr>
+    </thead>
+    <tbody id="league"></tbody>
     </table>
   </div>
 </div>
@@ -74,12 +92,27 @@ img.thumb{width:44px;height:44px;border-radius:8px;object-fit:cover;cursor:point
 <div class="card">
   <h2>All sightings</h2>
   <div class="table-wrap">
-    <table>
-      <thead>
-        <tr><th>Time</th><th>Breed</th><th>#</th><th>Location</th><th>Notes</th><th>Photo</th></tr>
-      </thead>
-      <tbody id="rows"></tbody>
-    </table>
+<table>
+  <colgroup>
+    <col style="width:160px">
+    <col style="width:180px">
+    <col style="width:60px">
+    <col style="width:200px">
+    <col>
+    <col style="width:70px">
+  </colgroup>
+  <thead>
+    <tr>
+      <th>Time</th>
+      <th>Breed</th>
+      <th>#</th>
+      <th>Location</th>
+      <th>Notes</th>
+      <th>Photo</th>
+    </tr>
+  </thead>
+  <tbody id="rows"></tbody>
+</table>
   </div>
 </div>
 
