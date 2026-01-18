@@ -158,10 +158,10 @@ const API=location.hostname==="localhost" || location.hostname==="127.0.0.1"
 const rowsEl=document.getElementById("rows");
 const leagueEl=document.getElementById("league");
 
-const sTotal=document.getElementById("sTotal");
+const sLogs=document.getElementById("sLogs");
 const sDogs=document.getElementById("sDogs");
 const sToday=document.getElementById("sToday");
-const sYesterday=document.getElementById("sYesterday");
+const sYest=document.getElementById("sYest");
 
 function fmt(ts){
   return new Date(ts).toLocaleString(undefined,{
@@ -220,10 +220,10 @@ async function load(){
     if(p) L.marker([p.lat,p.lng]).addTo(map);
   });
 
-  sTotal.textContent=data.length;
+  sLogs.textContent=data.length;
   sDogs.textContent=totalDogs;
   sToday.textContent=today;
-  sYesterday.textContent=yesterday;
+  sYest.textContent=yesterday;
 
   Object.entries(tally)
     .sort((a,b)=>b[1]-a[1])
