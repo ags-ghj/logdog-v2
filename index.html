@@ -345,17 +345,44 @@ function fmt(ts){
   return new Date(ts).toLocaleString(undefined,{weekday:"short",day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"});
 }
 
+async function compressImage(file){
+  return new Promise((resolve)=>{
+    const reader=new FileReader();
+    reader.onload=e=>{
+      const img=new Image();
+      img.onload=()=>{
+        const canvas=document.createElement("canvas");
+        let w=img.width,h=img.height;
+        const maxSize=1200;
+        if(w>h){if(w>maxSize){h*=maxSize/w;w=maxSize}}
+        else{if(h>maxSize){w*=maxSize/h;h=maxSize}}
+        canvas.width=w;canvas.height=h;
+        canvas.getContext("2d").drawImage(img,0,0,w,h);
+        canvas.toBlob(resolve,"image/jpeg",0.7);
+      };
+      img.src=e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
 async function submitLog(){
   status.textContent="Saving…";
   let photoUrl="";
   if(photo.files.length){
-    const fd=new FormData();fd.append("file",photo.files[0]);
+    status.textContent="Compressing photo…";
+    const compressed=await compressImage(photo.files[0]);
+    const fd=new FormData();fd.append("file",compressed,"photo.jpg");
+    status.textContent="Uploading photo…";
     photoUrl=await fetch(API+"/upload",{method:"POST",body:fd}).then(r=>r.text());
   }
+  status.textContent="Saving log…";
   await fetch(API+"/submit",{method:"POST",headers:{"Content-Type":"application/json"},
     body:JSON.stringify({breed:breed.value,count:+count.value,location:location.value,notes:notes.value,photoUrl})
   });
   notes.value="";photo.value="";photoName.textContent="";
+  status.textContent="Done!";
+  setTimeout(()=>status.textContent="",2000);
   load();
 }
 
